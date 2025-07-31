@@ -1,0 +1,39 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Stratagem {
+  id        String   @id @default(uuid())
+  name      String
+  code      Json       
+  category  String                 
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  games     Game[]
+}
+
+model Game {
+  id           String   @id @default(uuid())
+  stratagem    Stratagem @relation(fields: [stratagemId], references: [id])
+  stratagemId  String
+  guesses      Json                   // JSON array of guess attempts
+  won          Boolean
+  numGuesses   Int
+  createdAt    DateTime @default(now())
+}
+
+model User {
+  id        Int   @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  discordId String @unique
+}
