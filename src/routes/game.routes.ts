@@ -1,11 +1,15 @@
 import { Router } from 'express';
-import { guessAttempt } from '../controllers/game.controller';
+import { guessAttempt, create, update } from '../controllers/game.controller';
 
 const router = Router();
 
 export default router;
 
-//Should return an array of individual guesses
-//Each position can be correct, wrong position, or incorrect
-//Frontend then should use the array to correctly display the guesses
+//Returns an array of guesses and a new status of game after guess attempt
+// Either "win", "lose", or "continue"
+//Frontend then should use the data to correctly display the game
 router.post('/guess', guessAttempt);
+
+router.post('/guess/create', create);
+
+router.post('/guess/update', update);
