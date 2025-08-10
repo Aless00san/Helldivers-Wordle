@@ -1,0 +1,38 @@
+.screen-container {
+  display: flex;
+  height: 100%;
+}
+
+.left-side {
+  background-color: rgb(20, 31, 63);;
+  flex: 1;
+}
+
+.crt-effect {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.right-side {
+  background-color: rgb(20, 31, 63);;
+  flex: 1;
+}
+
+/* Mobile devices - screens smaller than 768px */
+@media (max-width: 768px) {
+  .screen-container {
+    flex-direction: column;
+  }
+  
+  .left-side,
+  .right-side {
+    flex: 1;
+  }
+  
+  .crt-effect {
+    flex: 6;
+  }
+}
