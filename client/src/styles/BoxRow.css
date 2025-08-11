@@ -1,0 +1,58 @@
+@import url("./App.css");
+
+.row-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  column-gap: 15px;
+}
+
+.box {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+}
+
+.box-number {
+  font-size: 48px;
+  margin: 0;
+  color: white;
+}
+
+.correct {
+    background-color: var(--correct-color);
+    border: transparent;  
+}
+
+/* Mobile devices - screens smaller than 768px */
+@media (max-width: 768px) {
+  .box {
+  width: 12vh;
+  height: 12vh;
+}
+.row-container {
+    column-gap: 2px;
+  }
+}
+
+/* Mobile devices - screens smaller than 768px */
+@media (max-width: 480px) {
+  .box {
+  width: 8vh;
+  height: 8vh;
+}
+  .row-container {
+    column-gap: 0px;
+  }
+}
+
+@media (max-height: 480px) {
+  .box {
+    width: 5vh;
+    height: 5vh;
+  }
+    
+}
