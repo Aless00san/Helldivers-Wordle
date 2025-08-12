@@ -1,0 +1,59 @@
+.screen-container {
+  display: flex;
+  height: 100%;
+}
+
+.crt-effect {
+  flex: 6;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+h2,
+h4 {
+  color: white;
+  white-space: nowrap;
+  text-align: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bold;
+  line-height: 2px;
+  text-shadow: 3px 3px 3px #ffffff8f;
+  scale: 1.5;
+}
+
+.high-score {
+  scale: 1.6;
+}
+
+.info-finalscore {
+  scale: 1.4;
+  line-height: 30px;
+}
+
+.final-score {
+  color: yellow;
+  text-shadow: 2px 4px 4px #f2ff006e;
+}
+
+/* Mobile devices - screens smaller than 768px */
+@media (max-width: 768px) {
+  .screen-container {
+    flex-direction: column;
+  }
+
+  h1,
+  h2,
+  h4 {
+    color: white;
+    white-space: nowrap;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    line-height: 2px;
+    text-shadow: 3px 3px 3px #ffffff8f;
+    scale: 1.2;
+  }
+}

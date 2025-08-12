@@ -17,9 +17,6 @@ importers:
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.1.1)
-      vault66-crt-effect:
-        specifier: ^1.2.0
-        version: 1.2.0
     devDependencies:
       '@eslint/js':
         specifier: ^9.32.0
@@ -1060,9 +1057,6 @@ packages:
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
 
-  vault66-crt-effect@1.2.0:
-    resolution: {integrity: sha512-J5pM73SEZpdi+oYHQoVMQHvzt3k12AVnqWfEoTmAM1dWUDyTzV95TjU9EWqHVmOo9CUwgCE6XVPCSpmj7xSfOQ==}
-
   vite@7.1.1:
     resolution: {integrity: sha512-yJ+Mp7OyV+4S+afWo+QyoL9jFWD11QFH0i5i7JypnfTcA1rmgxCbiA8WwAICDEtZ1Z1hzrVhN8R8rGTqkTY8ZQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
@@ -2074,11 +2068,6 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
-
-  vault66-crt-effect@1.2.0:
-    dependencies:
-      react: 19.1.1
-      react-dom: 19.1.1(react@19.1.1)
 
   vite@7.1.1:
     dependencies:
