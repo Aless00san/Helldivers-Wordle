@@ -9,6 +9,7 @@
     --dark-gray: #3a3a3c;
     --misplaced-color: #b59f3b;
     --correct-color: #538d4e;
+    --initial-color: transparent;
 }
 
 #root {

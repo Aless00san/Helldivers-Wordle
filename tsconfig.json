@@ -10,5 +10,5 @@
     "types": ["jest"],
     "moduleResolution": "node"
   },
-  "include": ["server/src","client/src"],
+  "include": ["server","client"],
 }
