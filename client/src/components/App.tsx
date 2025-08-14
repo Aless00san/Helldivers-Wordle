@@ -13,8 +13,15 @@ function App() {
           height: '100%',
         }}
       >
-        <div style={{ width: '100%', height: '100%' }}>
-          <Screen />
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <Screen rowCount={5} />
         </div>
       </div>
     </>
