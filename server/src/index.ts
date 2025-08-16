@@ -5,6 +5,9 @@ import gameRoutes from './routes/game.routes';
 import userRoutes from './routes/user.routes';
 import cookieParser from 'cookie-parser';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const app = express();
 const port = 3000;
 

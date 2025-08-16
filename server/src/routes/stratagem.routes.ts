@@ -7,8 +7,12 @@ import { updateStratagem } from '../controllers/stratagem.controller';
 import { getDailyStratagem } from '../controllers/stratagem.controller';
 
 import { keyAuth } from '../middleware/KeyAuth';
+import cors from 'cors';
 
 const router = Router();
+router.use(cors({
+    origin: 'http://localhost:5173',
+}));
 
 router.get('/stratagems', getAllStratagems);
 

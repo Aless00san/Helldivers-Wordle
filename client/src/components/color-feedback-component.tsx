@@ -117,14 +117,14 @@ const ColorFeedbackComponent: React.FC = () => {
     <div className="p-8 max-w-2xl mx-auto">
       <h2 className="text-2xl font-bold mb-6">Arrow Key Guess Game</h2>
 
-      <div className="flex gap-4 mb-6">
+      <div className="contaner flex flex-row gap-4 mb-6">
         {userGuess.map((value, index) => (
           <input
             key={index}
             type="text"
             value={arrowKeyToSymbol(value)}
             readOnly
-            className="w-20 h-20 rounded-lg border-2 border-gray-300 text-center font-bold"
+            className="game-box w-20 h-20 rounded-lg border-2 border-gray-300 text-center font-bold"
             style={{
               backgroundColor: getColorForFeedback(feedback[index]),
               color: feedback[index] === 'initial' ? '#6b7280' : 'white',

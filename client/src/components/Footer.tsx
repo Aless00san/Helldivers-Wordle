@@ -1,9 +1,9 @@
-import '../styles/App.css';
+import "../styles/App.css";
 function Footer() {
   return (
     <>
       <footer>
-        <p style={{ margin: '5px', padding: '5px' }}>Helldivers Wordle</p>
+        <p> Made by Aless00san </p>
       </footer>
     </>
   );
