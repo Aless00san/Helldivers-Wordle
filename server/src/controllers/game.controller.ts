@@ -2,16 +2,12 @@ import {
   evaluateGameStatus,
   updateGameStatus,
   createGame,
-} from '../services/game.service';
-import { Request, Response } from 'express';
+} from "../services/game.service";
+import { Request, Response } from "express";
 
 export const guessAttempt = async (req: Request, res: Response) => {
-  const validatedGuesses = await evaluateGameStatus(
-    ['b', 'c', 'x'],
-    ['a', 'c', 'b'],
-    1,
-    2
-  );
+  const { guess, solution } = req.body;
+  const validatedGuesses = await evaluateGameStatus(guess, solution, 1, 5);
   res.json(validatedGuesses);
 };
 

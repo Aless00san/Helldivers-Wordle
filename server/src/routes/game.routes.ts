@@ -1,12 +1,17 @@
 import { Router } from 'express';
+import cors from 'cors';
+
 import { guessAttempt, create, update } from '../controllers/game.controller';
 
 const router = Router();
+router.use(cors({
+    origin: 'http://localhost:5173',
+}));
 
 export default router;
 
 //Returns an array of guesses and a new status of game after guess attempt
-// Either "win", "lose", or "continue"
+//Either "win", "lose", or "continue"
 //Frontend then should use the data to correctly display the game
 router.post('/guess', guessAttempt);
 
