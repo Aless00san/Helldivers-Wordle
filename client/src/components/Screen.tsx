@@ -1,13 +1,17 @@
 import '../styles/Screen.css';
-import ColorFeedbackComponent from './color-feedback-component';
+import BoxRow from './BoxRow';
+import GameOver from './GameOver';
 
-export default function Screen() {
+export default function Screen({ rowCount }: { rowCount: number }) {
   return (
     <>
       <div className='screen-container'>
-        <div className='crt-effect'>
-          <ColorFeedbackComponent />
-        </div>
+        {Array.from({ length: rowCount }, (_, i) => (
+          <BoxRow
+            key={i}
+            boxCount={5}
+          />
+        ))}
       </div>
     </>
   );

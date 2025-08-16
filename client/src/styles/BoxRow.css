@@ -1,19 +1,25 @@
-@import url("./App.css");
+@import url('./App.css');
 
 .row-container {
   display: flex;
-  width: 100%;
-  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  width: auto;
+  height: auto;
   column-gap: 15px;
 }
 
-.box {
+.game-box {
+  width: 12vh;
+  height: 12vh;
   display: flex;
-  width: 80px;
-  height: 80px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  background-color: #222;
   border: 1px solid white;
+  box-shadow: 2px 2px 2px rgba(255, 255, 255, 0.447),
+    -2px -2px 2px rgba(255, 255, 255, 0.447);
 }
 
 .box-number {
@@ -23,36 +29,35 @@
 }
 
 .correct {
-    background-color: var(--correct-color);
-    border: transparent;  
+  background-color: var(--correct-color);
+  border: transparent;
 }
 
 /* Mobile devices - screens smaller than 768px */
 @media (max-width: 768px) {
-  .box {
-  width: 12vh;
-  height: 12vh;
-}
-.row-container {
+  .game-box {
+    width: 11vh;
+    height: 11vh;
+  }
+  .row-container {
     column-gap: 2px;
   }
 }
 
-/* Mobile devices - screens smaller than 768px */
 @media (max-width: 480px) {
-  .box {
-  width: 8vh;
-  height: 8vh;
-}
+  .game-box {
+    width: 8vh;
+    height: 8vh;
+  }
   .row-container {
     column-gap: 0px;
   }
 }
 
 @media (max-height: 480px) {
-  .box {
+  .game-box {
+    transform: translateY(-40px);
     width: 5vh;
     height: 5vh;
   }
-    
 }
