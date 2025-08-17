@@ -32,8 +32,9 @@
   font-weight: bolder;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 769px) {
   .mobile-controls {
     display: flex;
+    margin-top: 10px;
   }
 }

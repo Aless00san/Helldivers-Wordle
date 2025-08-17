@@ -1,29 +1,14 @@
 import Screen from './Screen.tsx';
 import '../styles/App.css';
+import Navbar from './Navbar.tsx';
+import Footer from './Footer.tsx';
 
 function App() {
   return (
     <>
-      <div
-        style={{
-          position: 'absolute',
-          top: '0',
-          left: '0',
-          width: '100%',
-          height: '100%',
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            width: '100%',
-            height: '100%',
-          }}
-        >
-          <Screen rowCount={5} />
-        </div>
-      </div>
+      <Navbar />
+      <Screen rowCount={5} />
+      <Footer />
     </>
   );
 }
