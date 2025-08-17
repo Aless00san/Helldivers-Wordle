@@ -1,41 +1,48 @@
-import { CiMenuBurger } from 'react-icons/ci';
-import '../styles/App.css';
+import { CiMenuBurger } from "react-icons/ci";
+import "../styles/App.css";
 
-function Navbar() {
+interface NavbarProps {
+  itemClickHandler: (route: string) => void;
+}
+
+function Navbar({ itemClickHandler }: NavbarProps) {
+  const handleItemClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    route: string
+  ) => {
+    e.preventDefault();
+    itemClickHandler(route);
+  };
   return (
     <>
       <nav>
-        <div className='dropdown is-hoverable menu-dropdown'>
-          <div className='dropdown-trigger'>
+        <div className="dropdown is-hoverable menu-dropdown">
+          <div className="dropdown-trigger">
             <button
-              style={{ backgroundColor: 'transparent', marginLeft: '10px' }}
+              style={{ backgroundColor: "transparent", marginLeft: "10px" }}
             >
               <CiMenuBurger
-                style={{ padding: '5px', scale: '125%' }}
+                style={{ padding: "5px", scale: "125%" }}
               ></CiMenuBurger>
             </button>
           </div>
-          <div
-            className='dropdown-menu'
-            id='dropdown-menu2'
-            role='menu'
-          >
-            <div className='dropdown-content'>
+          <div className="dropdown-menu" id="dropdown-menu2" role="menu">
+            <div className="dropdown-content">
               <a
-                href='#'
-                className='dropdown-item'
+                className="dropdown-item"
+                onClick={(e) => handleItemClick(e, "home")}
               >
                 Home
               </a>
               <a
-                href='#'
-                className='dropdown-item'
+                className="dropdown-item"
+                onClick={(e) => handleItemClick(e, "login")}
               >
                 Login
               </a>
               <a
-                href='#'
-                className='dropdown-item'
+                className="dropdown-item"
+                onClick={(e) => handleItemClick(e, "about")}
               >
                 About
               </a>
@@ -43,7 +50,7 @@ function Navbar() {
           </div>
         </div>
 
-        <p style={{ margin: '5px', padding: '35px' }}>Helldivers Wordle</p>
+        <p style={{ margin: "5px", padding: "35px" }}>Helldivers Wordle</p>
       </nav>
     </>
   );

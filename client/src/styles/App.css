@@ -63,3 +63,70 @@ a.dropdown-item,
 button.dropdown-item {
   background-color: #222 !important;
 }
+
+.discord-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+@keyframes wiggle {
+  0% { transform: rotateZ(0deg); }
+  25% { transform: rotateZ(2deg); }
+  50% { transform: rotateZ(0deg); }
+  75% { transform: rotateZ(-2deg); }
+  100% { transform: rotateZ(0deg); }
+}
+
+.discord-icon:hover {
+  animation: wiggle 0.5s infinite ease-in-out;
+   /* filter: drop-shadow(0 0 20px rgba(88, 101, 242, 0.589)); */
+  cursor: pointer;
+}
+
+.icon-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.icon-wrapper::before,
+.icon-wrapper::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 100, 149, 0.555); /* soft pink */
+  opacity: 0;
+  filter: blur(12px);
+  top: 50%; /* center vertically */
+  transform: translateY(-50%); /* adjust for exact vertical centering */
+}
+
+.icon-wrapper::before {
+  width: 20px;
+  height: 20px;
+  left: -12px; /* offset left */
+}
+
+.icon-wrapper::after {
+  width: 16px;
+  height: 16px;
+  right: -10px; /* offset right */
+}
+
+.icon-wrapper:hover::before,
+.icon-wrapper:hover::after {
+  opacity: 1; /* show on hover */
+}
+
+.icon-wrapper > svg {
+  position: relative;
+  z-index: 1; /* above the blush circles */
+}
+
+.icon-wrapper::before,
+.icon-wrapper::after {
+  position: absolute;
+  z-index: 10; 
+}
+
