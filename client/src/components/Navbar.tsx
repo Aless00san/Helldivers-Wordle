@@ -1,11 +1,16 @@
 import { CiMenuBurger } from "react-icons/ci";
 import "../styles/App.css";
+import HelldiveWordleLogo from "./icons/HelldiveWordleLogo";
 
 interface NavbarProps {
   itemClickHandler: (route: string) => void;
+  user: {
+    username: string;
+    id: number;
+  };
 }
 
-function Navbar({ itemClickHandler }: NavbarProps) {
+function Navbar({ itemClickHandler, user }: NavbarProps) {
   const handleItemClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
     route: string
@@ -50,7 +55,10 @@ function Navbar({ itemClickHandler }: NavbarProps) {
           </div>
         </div>
 
-        <p style={{ margin: "5px", padding: "35px" }}>Helldivers Wordle</p>
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <p style={{ margin: "5px"}}>{user.username}</p>
+          <HelldiveWordleLogo width={48} height={48} style={{ margin: "15px" }} />
+        </div>
       </nav>
     </>
   );

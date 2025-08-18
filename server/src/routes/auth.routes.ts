@@ -5,8 +5,15 @@ import {
   handleDiscordCallback,
   logout,
 } from '../controllers/auth.controller';
+import cors from 'cors';
 
 const router = Router();
+router.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true, 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 export default router;
 
