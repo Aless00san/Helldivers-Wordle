@@ -1,5 +1,4 @@
 @import url('./BoxRow.css');
-@import url('./fonts.css');
 
 .game-container {
   display: flex;
@@ -14,7 +13,6 @@
   align-items: center;
   column-gap: 10px;
   row-gap: 10px;
-  font-family: 'CustomFont';
 }
 
 .mobile-controls {
@@ -27,7 +25,7 @@
 }
 
 .input-box {
-  font-size: 56px;
+  font-size: 90px;
   text-align: center;
   font-weight: bolder;
 }
@@ -36,5 +34,9 @@
   .mobile-controls {
     display: flex;
     margin-top: 10px;
+  }
+
+  .input-box {
+    font-size: 56px;
   }
 }
