@@ -10,7 +10,6 @@ export async function getTokenFromCode(retrievedCode: string) {
     redirect_uri: 'http://localhost:3000/auth/discord/callback',
     scope: 'identify',
   };
-
   try {
     const res = await axios.post(
       'https://discord.com/api/oauth2/token',
