@@ -83,39 +83,42 @@ export const refreshToken = async (req: Request, res: Response) => {};
 
 //Sends a GET request to: https://discord.com/api/users/@me
 //Retrieves the user's database entry
-export const getCurrentUser = async (req: Request, res: Response) => {
+export const getUserFromRequest = async (req: Request) => {
   try {
-    if (!req.cookies || !req.cookies.access_token) {
-      return res.json({ status: 'ERROR', message: 'Access token is missing.' });
+    const token = req.cookies?.access_token;
+    if (!token) {
+      console.log('No access token in cookies');
+      return null;
     }
 
-    const user = await getUser(req.cookies.access_token);
-    const id = user.id;
-
+    const user = await getUser(token); // decode token or fetch user
     const userExists = await prisma.user.findFirst({
-      where: {
-        discordId: id,
-      },
+      where: { discordId: user.discordId },
     });
 
-    if (!userExists) {
-      return res.json({
-        status: 'ERROR',
-        message: 'User does not exist in DB.',
-      });
-    } else {
-      return res.json({
-        status: 'SUCCESS',
-        message: 'User exists in DB.',
-        user: userExists,
-      });
-    }
+    return userExists;
   } catch (err) {
-    return res.json({
-      status: 'ERROR',
-      message: 'Error retrieving current user.',
+    console.error(err);
+    return null;
+  }
+};
+
+// Keep your existing getCurrentUser for the API endpoint
+export const getCurrentUser = async (req: Request, res: Response) => {
+  const user = await getUserFromRequest(req);
+  
+  if (!user) {
+    return res.json({ 
+      status: 'ERROR', 
+      message: 'User not found or access token missing.' 
     });
   }
+  
+  return res.json({
+    status: 'SUCCESS',
+    message: 'User exists in DB.',
+    user: user,
+  });
 };
 
 export const logout = async (req: Request, res: Response) => {
@@ -130,3 +133,4 @@ export const logout = async (req: Request, res: Response) => {
 
   res.status(200).send('Successfully logged out.');
 };
+

@@ -1,17 +1,26 @@
-import '../styles/Screen.css';
-import About from './About';
-import Game from './Game';
-import Login from './Login';
+import "../styles/Screen.css";
+import About from "./About";
+import Game from "./Game";
+import GameHistory from "./GameHIstory";
+import Login from "./Login";
 
-export default function Screen({ currentPage }: { currentPage: string }) {
+export default function Screen({
+  currentPage,
+  userId,
+}: {
+  currentPage: string;
+  userId: number;
+}) {
   const renderContent = () => {
     switch (currentPage) {
-      case 'home':
+      case "home":
         return <Game />;
-      case 'login':
+      case "login":
         return <Login />;
-      case 'about':
+      case "about":
         return <About />;
+      case "history":
+        return <GameHistory userId={userId} />;
       default:
         return <Game />; // Fallback
     }
@@ -19,7 +28,7 @@ export default function Screen({ currentPage }: { currentPage: string }) {
 
   return (
     <>
-      <div className='screen-container'>{renderContent()}</div>
+      <div className="screen-container">{renderContent()}</div>
     </>
   );
 }

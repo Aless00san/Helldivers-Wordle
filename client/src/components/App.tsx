@@ -16,13 +16,6 @@ function App() {
     id: 0,
   });
 
-  const getCookie = (name: string) => {
-    const match = document.cookie.match(
-      new RegExp("(^| )" + name + "=([^;]+)")
-    );
-    return match ? decodeURIComponent(match[2]) : null;
-  };
-
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const username = urlParams.get("user") || "Guest";
@@ -63,7 +56,7 @@ function App() {
   return (
     <>
       <Navbar itemClickHandler={handleMenuItemClick} user={user} />
-      <Screen currentPage={currentPage} />
+      <Screen currentPage={currentPage} userId={user.id}/>
       <Footer />
     </>
   );

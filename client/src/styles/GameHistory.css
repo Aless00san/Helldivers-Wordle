@@ -1,0 +1,9 @@
+.game-history-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: rgba(29, 28, 28, 0.527);
+  border-left: 3px solid yellow;
+  margin: 5px;
+}

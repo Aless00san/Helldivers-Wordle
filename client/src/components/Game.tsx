@@ -11,6 +11,8 @@ export default function Game() {
   const [status, setStatus] = useState<string | null>(null);
   const [gameOver, setGameOver] = useState(false);
   const [solution, setSolution] = useState<string[]>([]);
+  const [currentGameId, setCurrentGameId] = useState<string | null>(null);
+  const [stratagemId, setStratagemId] = useState<string | null>(null);
 
   const allowedKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
@@ -25,6 +27,7 @@ export default function Game() {
         );
 
         setSolution(arrowKeyCode);
+        setStratagemId(data.id);
       } catch (err) {
         console.error("Failed to fetch daily stratagem:", err);
       }
@@ -32,6 +35,31 @@ export default function Game() {
 
     fetchDailyStratagem();
   }, []);
+
+  // Create game only when solution is loaded
+  useEffect(() => {
+    if (solution.length > 0 && stratagemId && !currentGameId) {
+      const createGame = async () => {
+        try {
+          const gameRes = await fetch(
+            "http://localhost:3000/game/guess/create",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
+              body: JSON.stringify({ stratagemId }),
+            }
+          );
+          const game = await gameRes.json();
+          setCurrentGameId(game.id);
+        } catch (error) {
+          console.error("Failed to create game:", error);
+        }
+      };
+
+      createGame();
+    }
+  }, [solution, stratagemId, currentGameId]);
 
   // Initialize game arrays when solution is loaded
   useEffect(() => {
@@ -186,17 +214,39 @@ export default function Game() {
     if (isCorrect) {
       setGameOver(true);
       setStatus("Congratulations! You guessed correctly.");
+      // Update the game status in the database
+      if (!currentGameId) return;
+      updateGameStatus(currentGameId, "WON");
       return;
     }
 
     if (currentRow >= guesses.length - 1) {
       setGameOver(true);
       setStatus("Game Over! Better luck next time.");
+      if (!currentGameId) return;
+      updateGameStatus(currentGameId, "LOST");
       return;
     }
 
     setCurrentRow((prev) => prev + 1);
   };
+
+  const updateGameStatus = async (gameId: string, status: string) => {
+    const response = await fetch("http://localhost:3000/game/guess/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        gameId,
+        status,
+      }),
+    });
+
+    if (!response.ok) {
+      return;
+    }
+
+  };
+
 
   //Rows number is based on solution length
   // 4 arrows was TOO easy with 5 rows
