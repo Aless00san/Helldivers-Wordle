@@ -106,14 +106,14 @@ export const getUserFromRequest = async (req: Request) => {
 // Keep your existing getCurrentUser for the API endpoint
 export const getCurrentUser = async (req: Request, res: Response) => {
   const user = await getUserFromRequest(req);
-  
+
   if (!user) {
-    return res.json({ 
-      status: 'ERROR', 
-      message: 'User not found or access token missing.' 
+    return res.json({
+      status: 'ERROR',
+      message: 'User not found or access token missing.',
     });
   }
-  
+
   return res.json({
     status: 'SUCCESS',
     message: 'User exists in DB.',
@@ -133,4 +133,3 @@ export const logout = async (req: Request, res: Response) => {
 
   res.status(200).send('Successfully logged out.');
 };
-

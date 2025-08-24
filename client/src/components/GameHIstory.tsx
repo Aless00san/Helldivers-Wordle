@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
-import "../styles/App.css";
-import GameHistoryEntry from "./GameHistoryEntry";
-import type { Game } from "../types";
+import { useState, useEffect } from 'react';
+import '../styles/App.css';
+import GameHistoryEntry from './GameHistoryEntry';
+import type { Game } from '../types';
 
 function GameHistory({ userId }: { userId: number }) {
   const [games, setGames] = useState<Game[]>([]);
@@ -20,7 +20,7 @@ function GameHistory({ userId }: { userId: number }) {
         );
 
         if (!response.ok) {
-          console.error("Failed to fetch games:", response.statusText);
+          console.error('Failed to fetch games:', response.statusText);
           setLoading(false);
           return;
         }
@@ -28,9 +28,9 @@ function GameHistory({ userId }: { userId: number }) {
         const data = await response.json();
 
         // Prevent duplicates
-        setGames((prevGames) => {
+        setGames(prevGames => {
           const newGames = data.games.filter(
-            (g: { id: string }) => !prevGames.some((prev) => prev.id === g.id)
+            (g: { id: string }) => !prevGames.some(prev => prev.id === g.id)
           );
           return [...prevGames, ...newGames];
         });
@@ -46,22 +46,25 @@ function GameHistory({ userId }: { userId: number }) {
   }, [page]);
 
   return (
-    <div className="max-w-xl mx-auto">
-      <h2 className="text-xl font-bold mb-4">Game History</h2>
-      {games.map((game) => (
-        <GameHistoryEntry key={game.id} game={game} />
+    <div className='max-w-xl mx-auto'>
+      <h2 className='text-xl font-bold mb-4'>Game History</h2>
+      {games.map(game => (
+        <GameHistoryEntry
+          key={game.id}
+          game={game}
+        />
       ))}
       {loading && <p>Loading...</p>}
       {!loading && hasMore && (
         <button
-          onClick={() => setPage((prev) => prev + 1)}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+          onClick={() => setPage(prev => prev + 1)}
+          className='mt-4 px-4 py-2 bg-blue-500 text-white rounded'
         >
           Load More
         </button>
       )}
       {!hasMore && (
-        <p className="mt-4 notification is-warning ">No more games</p>
+        <p className='mt-4 notification is-warning '>No more games</p>
       )}
     </div>
   );

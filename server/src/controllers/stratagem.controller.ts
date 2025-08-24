@@ -45,3 +45,8 @@ export async function getDailyStratagem(req: Request, res: Response) {
   const stratagem = await stratagemService.getDaily();
   res.json(stratagem);
 }
+
+export async function getRandomStratagem(req: Request, res: Response) {
+  const stratagem = await stratagemService.getRandom();
+  res.json(stratagem);
+}

@@ -1,6 +1,6 @@
-import { CiMenuBurger } from "react-icons/ci";
-import "../styles/App.css";
-import HelldiveWordleLogo from "./icons/HelldiveWordleLogo";
+import { CiMenuBurger } from 'react-icons/ci';
+import '../styles/App.css';
+import HelldiveWordleLogo from './icons/HelldiveWordleLogo';
 
 interface NavbarProps {
   itemClickHandler: (route: string) => void;
@@ -21,39 +21,43 @@ function Navbar({ itemClickHandler, user }: NavbarProps) {
   return (
     <>
       <nav>
-        <div className="dropdown is-hoverable menu-dropdown">
-          <div className="dropdown-trigger">
+        <div className='dropdown is-hoverable menu-dropdown'>
+          <div className='dropdown-trigger'>
             <button
-              style={{ backgroundColor: "transparent", marginLeft: "10px" }}
+              style={{ backgroundColor: 'transparent', marginLeft: '10px' }}
             >
               <CiMenuBurger
-                style={{ padding: "5px", scale: "125%" }}
+                style={{ padding: '5px', scale: '125%' }}
               ></CiMenuBurger>
             </button>
           </div>
-          <div className="dropdown-menu" id="dropdown-menu2" role="menu">
-            <div className="dropdown-content">
+          <div
+            className='dropdown-menu'
+            id='dropdown-menu2'
+            role='menu'
+          >
+            <div className='dropdown-content'>
               <a
-                className="dropdown-item"
-                onClick={(e) => handleItemClick(e, "home")}
+                className='dropdown-item'
+                onClick={e => handleItemClick(e, 'home')}
               >
                 Home
               </a>
               <a
-                className="dropdown-item"
-                onClick={(e) => handleItemClick(e, "login")}
+                className='dropdown-item'
+                onClick={e => handleItemClick(e, 'login')}
               >
                 Login
               </a>
               <a
-                className="dropdown-item"
-                onClick={(e) => handleItemClick(e, "history")}
+                className='dropdown-item'
+                onClick={e => handleItemClick(e, 'history')}
               >
                 History
               </a>
               <a
-                className="dropdown-item"
-                onClick={(e) => handleItemClick(e, "about")}
+                className='dropdown-item'
+                onClick={e => handleItemClick(e, 'about')}
               >
                 About
               </a>
@@ -61,9 +65,13 @@ function Navbar({ itemClickHandler, user }: NavbarProps) {
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <p style={{ margin: "5px"}}>{user.username}</p>
-          <HelldiveWordleLogo width={48} height={48} style={{ margin: "15px" }} />
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <p style={{ margin: '5px' }}>{user.username}</p>
+          <HelldiveWordleLogo
+            width={48}
+            height={48}
+            style={{ margin: '15px' }}
+          />
         </div>
       </nav>
     </>

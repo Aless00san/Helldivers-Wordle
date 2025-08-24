@@ -1,12 +1,13 @@
-import { PrismaClient } from "@prisma/client";
-import { getUserFromRequest } from "../controllers/auth.controller";
-import { Request } from "express";
-import { stat } from "fs";
+import { PrismaClient } from '@prisma/client';
+import { getUserFromRequest } from '../controllers/auth.controller';
+import { Request } from 'express';
+import { startOfDay, endOfDay } from 'date-fns';
+import { getRandomGame } from '../controllers/game.controller';
 
 const prisma = new PrismaClient();
 
-type GameStatus = "WON" | "LOST" | "IN_PROGRESS";
-type FeedbackType = "correct" | "misplaced" | "wrong";
+type GameStatus = 'WON' | 'LOST' | 'IN_PROGRESS';
+type FeedbackType = 'correct' | 'misplaced' | 'wrong';
 
 // Receives an array of guesses, the answer, and the attempts number
 // Compares each guess to the solution
@@ -18,13 +19,13 @@ export const evaluateGameStatus = (
   attempt: number,
   maxAttempts: number
 ): { guesses: FeedbackType[]; status: GameStatus } => {
-  const newGuesses: FeedbackType[] = new Array(guesses.length).fill("wrong");
+  const newGuesses: FeedbackType[] = new Array(guesses.length).fill('wrong');
   const answerCounts: { [key: string]: number } = {};
 
   // First pass: mark correct and build counts of unmatched letters
   for (let i = 0; i < guesses.length; i++) {
     if (guesses[i] === answer[i]) {
-      newGuesses[i] = "correct";
+      newGuesses[i] = 'correct';
     } else {
       // Count only unmatched letters
       answerCounts[answer[i]] = (answerCounts[answer[i]] || 0) + 1;
@@ -33,28 +34,28 @@ export const evaluateGameStatus = (
 
   // Second pass: check for misplaced
   for (let i = 0; i < guesses.length; i++) {
-    if (newGuesses[i] === "wrong") {
+    if (newGuesses[i] === 'wrong') {
       const guessChar = guesses[i];
       if (answerCounts[guessChar] && answerCounts[guessChar] > 0) {
-        newGuesses[i] = "misplaced";
+        newGuesses[i] = 'misplaced';
         answerCounts[guessChar]--;
       }
     }
   }
 
-  const isWin = newGuesses.every((g) => g === "correct");
+  const isWin = newGuesses.every(g => g === 'correct');
   const isFinalAttempt = attempt >= maxAttempts - 1;
 
   return {
     guesses: newGuesses,
-    status: isWin ? "WON" : isFinalAttempt ? "LOST" : "IN_PROGRESS",
+    status: isWin ? 'WON' : isFinalAttempt ? 'LOST' : 'IN_PROGRESS',
   };
 };
 
 export const createGame = async (stratagemId: string, req: Request) => {
   const user = await getUserFromRequest(req);
 
-  if (!user) throw new Error("User not authenticated");
+  if (!user) throw new Error('User not authenticated');
 
   const existingGame = await getGameByUserToday(user.id);
   if (existingGame) return existingGame;
@@ -63,7 +64,7 @@ export const createGame = async (stratagemId: string, req: Request) => {
     data: {
       stratagem: { connect: { id: stratagemId } },
       user: { connect: { id: user.id } }, // guaranteed to exist
-      status: "IN_PROGRESS",
+      status: 'IN_PROGRESS',
     },
   });
 
@@ -74,15 +75,15 @@ export const updateGameStatus = async (gameId: string, status: GameStatus) => {
   const result = await prisma.game.updateMany({
     where: {
       id: gameId,
-      status: "IN_PROGRESS",
+      status: 'IN_PROGRESS',
     },
     data: { status },
   });
 
   if (result.count === 0) {
     return {
-      status: "FAILED",
-      message: "Game not found or not in progress",
+      status: 'FAILED',
+      message: 'Game not found or not in progress',
     };
   }
 
@@ -90,23 +91,19 @@ export const updateGameStatus = async (gameId: string, status: GameStatus) => {
 };
 
 export const getGameByUserToday = async (userId: number) => {
-  const startOfToday = new Date();
-  startOfToday.setHours(0, 0, 0, 0);
-
-  const endOfToday = new Date();
-  endOfToday.setHours(23, 59, 59, 999);
+  const now = new Date();
+  const startOfToday = startOfDay(now); // still local by default
+  const endOfToday = endOfDay(now);
 
   const game = await prisma.game.findFirst({
     where: {
-      userId: userId,
+      userId,
       createdAt: {
-        gte: startOfToday,
-        lte: endOfToday,
+        gte: startOfToday.toISOString(), // force UTC
+        lte: endOfToday.toISOString(),
       },
     },
-    include: {
-      user: true,
-    },
+    include: { user: true },
   });
 
   return game;
@@ -122,7 +119,7 @@ export const getUserGameHistory = async (
 ) => {
   const games = await prisma.game.findMany({
     where: { userId },
-    orderBy: { createdAt: "desc" },
+    orderBy: { createdAt: 'desc' },
     skip: (page - 1) * pageSize,
     take: pageSize,
   });

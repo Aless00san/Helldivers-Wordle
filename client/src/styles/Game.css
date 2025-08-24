@@ -30,6 +30,27 @@
   font-weight: bolder;
 }
 
+.status-message {
+  font-size: 24px;
+  text-align: center;
+}
+
+.newgame_button {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.newgame_button:hover {
+  background-color: var(--dark-gray);
+}
+
+.arrowbox {
+  font-size: 24px;
+  text-align: center;
+  background-color: rgb(25, 25, 25);
+  border-radius: 12px;
+}
+
 @media (max-width: 769px) {
   .mobile-controls {
     display: flex;
