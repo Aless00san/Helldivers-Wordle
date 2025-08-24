@@ -36,7 +36,6 @@ export const create = async (req: Request, res: Response) => {
 export const checkExistingGame = async (req: Request, res: Response) => {
   try {
     const user = await getUserFromRequest(req);
-    console.log(user);
 
     if (!user) {
       return res.status(401).json({

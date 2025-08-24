@@ -45,8 +45,8 @@ function GameHistoryEntry({ game }: { game: Game }) {
         return "tag is-success";
       case "LOST":
         return "tag is-danger";
-      case "DRAW":
-        return "tag is-warning";
+      case "ABANDONED":
+        return "tag is-custom-warning";
       default:
         return "tag is-light";
     }
@@ -56,7 +56,9 @@ function GameHistoryEntry({ game }: { game: Game }) {
     <div className="game-history-entry">
       <div className="mr-4">
         <p>
-          <strong>Stratagem:</strong> {stratagemName}
+          {game.status !== "IN_PROGRESS" && (
+            <strong>Stratagem: {stratagemName}</strong>
+          )}
         </p>
       </div>
       <div className="mr-4">
@@ -65,9 +67,7 @@ function GameHistoryEntry({ game }: { game: Game }) {
         </p>
       </div>
       <div className="mr-4">
-        <span className={getStatusClass(game.status)}>
-          {game.status}
-        </span>
+        <span className={getStatusClass(game.status)}>{game.status}</span>
       </div>
     </div>
   );

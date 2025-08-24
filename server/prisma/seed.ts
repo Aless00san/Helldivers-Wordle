@@ -120,7 +120,7 @@ async function main() {
       category: 'Weapon',
     },
     {
-      name: 'A/AC-8 Autocannon Sentry',
+      name: 'A-AC-8 Autocannon Sentry',
       code: ['🠫', '🠩', '🠪', '🠩', '🠨', '🠩'],
       category: 'Weapon',
     },

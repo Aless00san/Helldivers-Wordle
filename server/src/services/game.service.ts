@@ -2,7 +2,6 @@ import { PrismaClient } from '@prisma/client';
 import { getUserFromRequest } from '../controllers/auth.controller';
 import { Request } from 'express';
 import { startOfDay, endOfDay } from 'date-fns';
-import { getRandomGame } from '../controllers/game.controller';
 
 const prisma = new PrismaClient();
 

@@ -16,7 +16,7 @@ function GameHistory({ userId }: { userId: number }) {
       setLoading(true);
       try {
         const response = await fetch(
-          `http://localhost:3000/game/history?userId=${userId}&page=${page}&pageSize=5`
+          `http://localhost:3000/game/history?userId=${userId}&page=${page}&pageSize=4`
         );
 
         if (!response.ok) {

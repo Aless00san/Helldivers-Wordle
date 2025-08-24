@@ -7,3 +7,16 @@
   border-left: 3px solid yellow;
   margin: 5px;
 }
+
+.is-custom-warning {
+  background-color: #e7ab5c;
+  color: black;
+}
+
+@media screen and (max-width: 768px) {
+  .game-history-entry {
+    flex-direction: column;
+    font-size: small;
+  }
+  
+}

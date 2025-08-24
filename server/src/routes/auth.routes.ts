@@ -4,6 +4,7 @@ import {
   redirectToDiscordAuth,
   handleDiscordCallback,
   logout,
+  refreshToken,
 } from '../controllers/auth.controller';
 import cors from 'cors';
 
@@ -19,5 +20,6 @@ export default router;
 
 router.get('/discord', redirectToDiscordAuth);
 router.get('/discord/callback', handleDiscordCallback);
+router.post('/discord/refresh', refreshToken);
 router.get('/discord/logout', logout);
 router.get('/discord/user', getCurrentUser);
