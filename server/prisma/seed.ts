@@ -40,12 +40,12 @@ async function main() {
       category: 'Weapon',
     },
     {
-      name: 'A/M-12 Mortar Sentry',
+      name: 'A-M-12 Mortar Sentry',
       code: ['🠫', '🠩', '🠪', '🠪', '🠫'],
       category: 'Weapon',
     },
     {
-      name: 'A/MLS-4X Rocket Sentry',
+      name: 'A-MLS-4X Rocket Sentry',
       code: ['🠫', '🠩', '🠪', '🠪', '🠨'],
       category: 'Weapon',
     },
