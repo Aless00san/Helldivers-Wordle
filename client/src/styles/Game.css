@@ -1,4 +1,4 @@
-@import url('./BoxRow.css');
+@import url("./BoxRow.css");
 
 .game-container {
   display: flex;
@@ -9,19 +9,14 @@
 
 .box-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   column-gap: 10px;
   row-gap: 10px;
 }
 
-.mobile-controls {
+.mobile-controls-row {
   display: none;
-}
-
-.box-row {
-  display: flex;
-  flex-direction: row;
 }
 
 .input-box {
@@ -30,13 +25,148 @@
   font-weight: bolder;
 }
 
+.status-message {
+  font-size: 24px;
+  text-align: center;
+}
+
+.newgame_button {
+  font-size: 24px;
+  margin-top: 10px;
+}
+
+.newgame_button:hover {
+  background-color: var(--dark-gray);
+}
+
+.arrowbox {
+  font-size: 24px;
+  text-align: center;
+  background-color: rgb(25, 25, 25);
+  border-radius: 12px;
+}
+
+.mobile-arrow-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.mobile-arrow-controls div {
+  display: flex;
+  gap: 10px;
+}
+
+.mobile-arrow-controls button {
+  padding: 12px 18px;
+  font-size: 1.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+}
+
+.mobile-arrow-controls button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.stats {
+  display: flex;
+  flex-direction: column; /* apila los elementos verticalmente */
+  align-items: center; /* centra horizontalmente */
+  gap: 10px; /* opcional, espacio entre elementos */
+  text-align: center; /* asegura que los textos queden centrados */
+}
+
+.mobile-controls {
+  display: none;
+}
+
 @media (max-width: 769px) {
-  .mobile-controls {
-    display: flex;
-    margin-top: 10px;
+  
+  .mobile-controls-row {
+  display: flex;
+  align-items: center;      /* centra verticalmente la pirámide */
+  justify-content: center;  /* centra todo horizontalmente */
+  gap: 20px;                /* espacio entre lados y pirámide */
+}
+
+.side-buttons {
+  display: flex;
+  flex-direction: column;   /* botones apilados verticalmente */
+  gap: 10px;
+}
+
+.mobile-arrow-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-arrow-controls .row {
+  display: flex;
+  gap: 10px;
+}
+
+.mobile-arrow-controls .top-row {
+  justify-content: center;
+}
+
+.mobile-arrow-controls .bottom-row {
+  justify-content: center;
+}
+
+.mobile-arrow-controls button,
+.side-buttons button {
+  padding: 12px 18px;
+  font-size: 1.4rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
+.button.is-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.button.is-primary:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.button.is-warning {
+  background-color: #f0ad4e;
+  color: white;
+}
+
+.button.is-warning:hover {
+  background-color: #ec971f;
+}
+
+.button.is-danger {
+  background-color: #d9534f;
+  color: white;
+}
+
+.button.is-danger:hover {
+  background-color: #c9302c;
+}
+
+.input-box {
+    width: 20%;
+
+    font-size: 1.4rem;
   }
 
-  .input-box {
-    font-size: 56px;
-  }
+  .box-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* centra filas con cualquier número de cajas */
+  align-items: center;
+  column-gap: 10px;
+}
 }

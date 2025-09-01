@@ -8,3 +8,12 @@ export interface Game {
   status: GameStatus;
   userId?: number;
 }
+
+export interface Stratagem {
+  id: string;
+  name: string;
+  code: string[];
+  category: string;
+  enabled: boolean;
+  createdAt: Date;
+}

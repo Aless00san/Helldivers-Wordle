@@ -4,12 +4,12 @@ import {
   createGame,
   getGameByUserToday,
   getUserGameHistory,
-} from "../services/game.service";
+} from '../services/game.service';
 import {
   getCurrentUser,
   getUserFromRequest,
-} from "../controllers/auth.controller";
-import { Request, Response } from "express";
+} from '../controllers/auth.controller';
+import { Request, Response } from 'express';
 
 export const guessAttempt = async (req: Request, res: Response) => {
   const { guess, solution } = req.body;
@@ -36,12 +36,11 @@ export const create = async (req: Request, res: Response) => {
 export const checkExistingGame = async (req: Request, res: Response) => {
   try {
     const user = await getUserFromRequest(req);
-    console.log(user);
 
     if (!user) {
       return res.status(401).json({
-        status: "ERROR",
-        message: "User not found or access token missing.",
+        status: 'ERROR',
+        message: 'User not found or access token missing.',
       });
     }
 
@@ -49,21 +48,21 @@ export const checkExistingGame = async (req: Request, res: Response) => {
 
     if (game) {
       return res.json({
-        status: "SUCCESS",
-        message: "Game already exists for today.",
+        status: 'SUCCESS',
+        message: 'Game already exists for today.',
         game,
       });
     } else {
       return res.json({
-        status: "SUCCESS",
-        message: "No game found for today.",
+        status: 'SUCCESS',
+        message: 'No game found for today.',
         game: null,
       });
     }
   } catch (err) {
     return res.status(500).json({
-      status: "ERROR",
-      message: "Internal server error.",
+      status: 'ERROR',
+      message: 'Internal server error.',
     });
   }
 };
@@ -74,7 +73,7 @@ export const getGameHistory = async (req: Request, res: Response) => {
   const pageSize = Number(req.query.pageSize) || 10;
 
   if (!userId) {
-    return res.status(400).json({ error: "userId is required" });
+    return res.status(400).json({ error: 'userId is required' });
   }
 
   const games = await getUserGameHistory(userId, page, pageSize);

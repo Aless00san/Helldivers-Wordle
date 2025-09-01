@@ -4,12 +4,15 @@ import authRoutes from './routes/auth.routes';
 import gameRoutes from './routes/game.routes';
 import userRoutes from './routes/user.routes';
 import cookieParser from 'cookie-parser';
+import { startGameCleanupJob } from './jobs/gameCleanup';
 
 import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
 const port = 3000;
+
+startGameCleanupJob(); // start the game cleanup job automatically
 
 app.use(express.json());
 app.use(cookieParser());

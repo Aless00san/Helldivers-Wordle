@@ -44,4 +44,10 @@ export const stratagemService = {
     let index = parseInt(slicedHash, 16) % size;
     return all[index];
   },
+  getRandom: async () => {
+    let all = await stratagemService.getAll();
+    let size = all.length;
+    let index = Math.floor(Math.random() * size);
+    return all[index];
+  },
 };

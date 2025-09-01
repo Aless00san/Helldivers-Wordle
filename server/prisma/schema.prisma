@@ -29,7 +29,7 @@ enum GameStatus {
 
 model Game {
   id           String     @id @default(uuid())
-  stratagem    Stratagem  @relation(fields: [stratagemId], references: [id])
+  stratagem    Stratagem  @relation(fields: [stratagemId], references: [id], onDelete: Cascade)
   stratagemId  String
   createdAt    DateTime   @default(now())
   status       GameStatus @default(IN_PROGRESS)

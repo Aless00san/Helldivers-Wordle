@@ -1,0 +1,53 @@
+.gallery-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.stratagem-icon {
+  width: 120px !important;
+  height: 120px !important;
+  border: 1px solid white;
+}
+
+.stratagem-icon:hover {
+  border: 1px solid rgb(134, 132, 132);
+  scale: 1.1;
+  cursor: pointer;
+}
+
+.modal-container {
+    background-color: var(--dark-gray);
+    padding: 20px;
+    border:  1px solid white;
+}
+
+@media (max-width: 768px) {
+  .gallery-container {
+    justify-content: center;
+    gap: 10px;
+    padding: 15px;
+  }
+  
+  .stratagem-icon {
+    width: 70px !important;
+    height: 70px !important;
+  }
+  
+  .stratagem-icon:hover {
+    scale: 1.05;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-container {
+    gap: 8px;
+    padding: 10px;
+  }
+  
+  .stratagem-icon {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
