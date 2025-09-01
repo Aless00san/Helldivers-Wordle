@@ -8,14 +8,16 @@ import Login from './Login';
 export default function Screen({
   currentPage,
   userId,
+  isLoggedIn,
 }: {
   currentPage: string;
   userId: number;
+  isLoggedIn: boolean | null;
 }) {
   const renderContent = () => {
     switch (currentPage) {
       case 'home':
-        return <Game />;
+        return <Game isLoggedIn={isLoggedIn} />;
       case 'login':
         return <Login />;
       case 'about':
@@ -25,7 +27,7 @@ export default function Screen({
       case 'gallery':
         return <Gallery/>;
       default:
-        return <Game />; // Fallback
+        return <Game isLoggedIn={isLoggedIn} />; //Fallback
     }
   };
 
