@@ -356,6 +356,36 @@ export default function Game() {
     return `../public/stratagems/${name}.svg`;
   }
 
+  const handleArrow = (key: string) => {
+    if (gameOver || guesses.length === 0) return;
+
+    const currentGuess = guesses[currentRow];
+    const firstEmptyIndex = currentGuess.findIndex((val) => val === "");
+    if (firstEmptyIndex === -1) return;
+
+    const updatedGuesses = [...guesses];
+    updatedGuesses[currentRow][firstEmptyIndex] = key;
+    setGuesses(updatedGuesses);
+  };
+
+  const handleUndo = () => {
+    if (gameOver || guesses.length === 0) return;
+
+    const currentGuess = guesses[currentRow];
+    let lastFilledIndex = -1;
+    for (let i = currentGuess.length - 1; i >= 0; i--) {
+      if (currentGuess[i] !== "") {
+        lastFilledIndex = i;
+        break;
+      }
+    }
+    if (lastFilledIndex !== -1) {
+      const updatedGuesses = [...guesses];
+      updatedGuesses[currentRow][lastFilledIndex] = "";
+      setGuesses(updatedGuesses);
+    }
+  };
+
   return (
     <>
       <div className="game-container">
@@ -380,20 +410,27 @@ export default function Game() {
           ))}
 
         {!status && (
-          <div className="field mb-6 mobile-controls">
-            <div className="control">
-              <button
-                onClick={submitGuess}
-                className="button is-primary submit-button"
-                disabled={gameOver}
-              >
-                Submit Guess
+          <div className="mobile-controls-row">
+            <div className="side-buttons left">
+              <button onClick={handleUndo} className="button is-warning">
+                ↩
               </button>
-              <button
-                onClick={resetGame}
-                className="button is-danger submit-button"
-              >
-                Reset Game
+            </div>
+
+            <div className="mobile-arrow-controls">
+              <div className="row top-row">
+                <button onClick={() => handleArrow("ArrowUp")}>^</button>
+              </div>
+              <div className="row bottom-row">
+                <button onClick={() => handleArrow("ArrowLeft")}>{"<"}</button>
+                <button onClick={() => handleArrow("ArrowDown")}>v</button>
+                <button onClick={() => handleArrow("ArrowRight")}>{">"}</button>
+              </div>
+            </div>
+
+            <div className="side-buttons right">
+              <button onClick={submitGuess} className="button is-info">
+                ✓
               </button>
             </div>
           </div>

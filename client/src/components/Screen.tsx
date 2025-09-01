@@ -1,5 +1,6 @@
 import '../styles/Screen.css';
 import About from './About';
+import Gallery from './Gallery';
 import Game from './Game';
 import GameHistory from './GameHistory';
 import Login from './Login';
@@ -21,6 +22,8 @@ export default function Screen({
         return <About />;
       case 'history':
         return <GameHistory userId={userId} />;
+      case 'gallery':
+        return <Gallery/>;
       default:
         return <Game />; // Fallback
     }

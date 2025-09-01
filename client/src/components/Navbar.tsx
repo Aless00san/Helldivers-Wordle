@@ -57,6 +57,12 @@ function Navbar({ itemClickHandler, user }: NavbarProps) {
               </a>
               <a
                 className='dropdown-item'
+                onClick={e => handleItemClick(e, 'gallery')}
+              >
+                Gallery
+              </a>
+              <a
+                className='dropdown-item'
                 onClick={e => handleItemClick(e, 'about')}
               >
                 About

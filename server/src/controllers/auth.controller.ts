@@ -136,7 +136,6 @@ export const getUserFromRequest = async (req: Request) => {
   try {
     const token = req.cookies?.access_token;
     if (!token) {
-      console.log('No access token in cookies');
       return null;
     }
 
