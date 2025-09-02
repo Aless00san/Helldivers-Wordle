@@ -5,10 +5,8 @@ export default function Login() {
   // Function to handle login button click
   const handleLoginButtonClick = () => {
     //Should open a web page with the Discord login
-    window.open(
-      'https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord%2Fcallback&scope=identify+email',
-      '_blank'
-    );
+    window.location.href =
+      'https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord%2Fcallback&scope=identify+email';
   };
   return (
     <>

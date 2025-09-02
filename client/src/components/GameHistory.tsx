@@ -47,7 +47,7 @@ function GameHistory({ userId }: { userId: number }) {
 
   return (
     <div className='max-w-xl mx-auto'>
-      <h2 className='text-xl font-bold mb-4'>Game History</h2>
+      <h2 className='font-bold mb-4'>Game History</h2>
       {games.map(game => (
         <GameHistoryEntry
           key={game.id}

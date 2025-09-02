@@ -349,7 +349,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     if (gameOver || guesses.length === 0) return;
 
     const currentGuess = guesses[currentRow];
-    const firstEmptyIndex = currentGuess.findIndex((val) => val === "");
+    const firstEmptyIndex = currentGuess.findIndex(val => val === '');
     if (firstEmptyIndex === -1) return;
 
     const updatedGuesses = [...guesses];
@@ -363,14 +363,14 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     const currentGuess = guesses[currentRow];
     let lastFilledIndex = -1;
     for (let i = currentGuess.length - 1; i >= 0; i--) {
-      if (currentGuess[i] !== "") {
+      if (currentGuess[i] !== '') {
         lastFilledIndex = i;
         break;
       }
     }
     if (lastFilledIndex !== -1) {
       const updatedGuesses = [...guesses];
-      updatedGuesses[currentRow][lastFilledIndex] = "";
+      updatedGuesses[currentRow][lastFilledIndex] = '';
       setGuesses(updatedGuesses);
     }
   };
@@ -402,26 +402,32 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
           ))}
 
         {!status && (
-          <div className="mobile-controls-row">
-            <div className="side-buttons left">
-              <button onClick={handleUndo} className="button is-warning">
+          <div className='mobile-controls-row'>
+            <div className='side-buttons left'>
+              <button
+                onClick={handleUndo}
+                className='button is-warning'
+              >
                 ↩
               </button>
             </div>
 
-            <div className="mobile-arrow-controls">
-              <div className="row top-row">
-                <button onClick={() => handleArrow("ArrowUp")}>^</button>
+            <div className='mobile-arrow-controls'>
+              <div className='row top-row'>
+                <button onClick={() => handleArrow('ArrowUp')}>^</button>
               </div>
-              <div className="row bottom-row">
-                <button onClick={() => handleArrow("ArrowLeft")}>{"<"}</button>
-                <button onClick={() => handleArrow("ArrowDown")}>v</button>
-                <button onClick={() => handleArrow("ArrowRight")}>{">"}</button>
+              <div className='row bottom-row'>
+                <button onClick={() => handleArrow('ArrowLeft')}>{'<'}</button>
+                <button onClick={() => handleArrow('ArrowDown')}>v</button>
+                <button onClick={() => handleArrow('ArrowRight')}>{'>'}</button>
               </div>
             </div>
 
-            <div className="side-buttons right">
-              <button onClick={submitGuess} className="button is-info">
+            <div className='side-buttons right'>
+              <button
+                onClick={submitGuess}
+                className='button is-info'
+              >
                 ✓
               </button>
             </div>
@@ -435,7 +441,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
               <div className='stratagem-icon mb-2'>
                 <img
                   src={getStratagemIconUrl(stratagemName)} // or a local path
-                  style={{ width: '60px', height: '60px' }}
+                  style={{ width: '80px', height: '80px' }}
                 />
               </div>
               <div>The stratagem was {stratagemName}</div>
