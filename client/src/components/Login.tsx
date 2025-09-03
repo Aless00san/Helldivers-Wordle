@@ -6,7 +6,7 @@ export default function Login() {
   const handleLoginButtonClick = () => {
     //Should open a web page with the Discord login
     window.location.href =
-      'https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord%2Fcallback&scope=identify+email';
+      'https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=https%3A%2F%2Fgg.helldive.site%2Fauth%2Fdiscord%2Fcallback&scope=identify+email';
   };
   return (
     <>

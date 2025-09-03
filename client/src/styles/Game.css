@@ -20,9 +20,18 @@
 }
 
 .input-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+.input-box span {
   font-size: 90px;
   text-align: center;
   font-weight: bolder;
+  color: white;
 }
 
 .status-message {
@@ -96,6 +105,14 @@
   cursor: default;
 }
 
+.hide-desktop {
+  display: none;
+}
+
+.hide-mobile {
+  display: flex;
+}
+
 @media (max-width: 769px) {
   .mobile-controls-row {
     display: flex;
@@ -167,9 +184,8 @@
   }
 
   .input-box {
-    width: 20%;
-
-    font-size: 1.4rem;
+    width: 40px;
+    height: 40px;
   }
 
   .box-row {
@@ -178,5 +194,13 @@
     justify-content: center; /* centra filas con cualquier número de cajas */
     align-items: center;
     column-gap: 10px;
+  }
+
+  .hide-desktop {
+    display: flex;
+  }
+
+  .hide-mobile {
+    display: none;
   }
 }
