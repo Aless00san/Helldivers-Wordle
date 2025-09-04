@@ -205,3 +205,23 @@
     display: none;
   }
 }
+
+@media (max-height: 600px) {
+  .input-box {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@media (max-height: 568px) {
+  .input-box {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .input-box span {
+    color: black;
+  }
+}
