@@ -20,7 +20,7 @@
 }
 
 nav {
-  background-color: transparent;
+  background-color: #242424;
   border-bottom: 3px solid rgb(134, 132, 132);
   box-shadow: 5px 5px 5px #4e4e4e62;
   width: 100%;
@@ -35,7 +35,7 @@ nav {
 }
 
 footer {
-  background-color: transparent;
+  background-color: #242424;
   border-top: 3px solid rgb(134, 132, 132);
   box-shadow: -5px -5px 5px #4e4e4e62;
   width: 100%;
