@@ -5,6 +5,7 @@
   flex-direction: column;
   align-items: center;
   row-gap: 5px;
+  z-index: 0;
 }
 
 .box-row {
