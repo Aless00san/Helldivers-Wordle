@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter helldivers-wordle-server dev",
-    "build": "pnpm --filter helldivers-wordle-server build",
-    "start": "pnpm --filter helldivers-wordle-server start",
+    "dev:server": "pnpm --filter helldivers-wordle-server dev",
+    "dev:client": "pnpm --filter helldivers-wordle-client dev",
     "seed": "pnpm --filter helldivers-wordle-server seed",
-    "test": "pnpm recursive test"
+    "test": "pnpm --filter helldivers-wordle-server test"
   },
   "devDependencies": {
     "typescript": "^5.8.3",
