@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const redirectToDiscordAuth = async (req: Request, res: Response) => {
   res.redirect(
-    `https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord%2Fcallback&scope=identify+email`
+    `https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=https%3A%2F%2Fgg.helldive.site%2Fauth%2Fdiscord%2Fcallback&scope=identify+email`
   );
 };
 
@@ -48,7 +48,7 @@ export const handleDiscordCallback = async (req: Request, res: Response) => {
     const user = await getUser(token.access_token);
 
     //check if user exists in DB
-    const userExists = await prisma.user.findFirst({
+    const userExists = await prisma.user.findUnique({
       where: {
         discordId: user.id,
       },
@@ -142,8 +142,8 @@ export const getUserFromRequest = async (req: Request) => {
     }
 
     const user = await getUser(token); // decode token or fetch user
-    const userExists = await prisma.user.findFirst({
-      where: { discordId: user.discordId },
+    const userExists = await prisma.user.findUnique({
+      where: { discordId: user.id },
     });
 
     return userExists;

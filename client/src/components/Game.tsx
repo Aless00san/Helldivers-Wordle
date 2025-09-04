@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type JSX } from 'react';
+import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from './Arrows';
 import '../styles/Game.css';
 
 export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   // Types
   type FeedbackType = 'correct' | 'misplaced' | 'wrong' | 'initial';
 
-  const [isDaily, setIsDaily] = useState(false);
+  // const [isDaily, setIsDaily] = useState(false);
 
   const [currentRow, setCurrentRow] = useState<number>(0);
   const [guesses, setGuesses] = useState<string[][]>([]);
@@ -16,14 +17,13 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   const [currentGameId, setCurrentGameId] = useState<string | null>(null);
   const [stratagemId, setStratagemId] = useState<string | null>(null);
   const [stratagemName, setStratagemName] = useState<string | null>(null);
-  const [playedToday, setPlayedToday] = useState(false);
 
   const allowedKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
 
   const fetchStratagem = async () => {
     if (isLoggedIn) {
       try {
-        const playedToday = await fetch('http://localhost:3000/game/today', {
+        const playedToday = await fetch('https://gg.helldive.site/game/today', {
           method: 'GET',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
@@ -37,14 +37,16 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
           data.message === 'No game found for today.'
         ) {
           console.debug('Fetching daily stratagem');
-          const res = await fetch('http://localhost:3000/api/stratagems/daily');
+          const res = await fetch(
+            'https://gg.helldive.site/api/stratagems/daily'
+          );
           const game = await res.json();
 
           const arrowKeyCode = game.code.map((symbol: string) =>
             symbolToArrowKey(symbol)
           );
 
-          setIsDaily(true);
+          // setIsDaily(true);
           setSolution(arrowKeyCode);
           updateStratagem(game);
         } else {
@@ -70,7 +72,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       const createGame = async () => {
         try {
           const gameRes = await fetch(
-            'http://localhost:3000/game/guess/create',
+            'https://gg.helldive.site/game/guess/create',
             {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -121,6 +123,41 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
         return '🠪';
       default:
         return '';
+    }
+  };
+
+  const arrowKeyToComponent = (key: string): JSX.Element | null => {
+    switch (key) {
+      case 'ArrowUp':
+        return (
+          <ArrowUp
+            width={24}
+            height={24}
+          />
+        );
+      case 'ArrowDown':
+        return (
+          <ArrowDown
+            width={24}
+            height={24}
+          />
+        );
+      case 'ArrowLeft':
+        return (
+          <ArrowLeft
+            width={24}
+            height={24}
+          />
+        );
+      case 'ArrowRight':
+        return (
+          <ArrowRight
+            width={24}
+            height={24}
+          />
+        );
+      default:
+        return null;
     }
   };
 
@@ -211,7 +248,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       return;
     }
 
-    const response = await fetch('http://localhost:3000/game/guess', {
+    const response = await fetch('https://gg.helldive.site/game/guess', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -221,7 +258,6 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     });
 
     if (!response.ok) {
-      alert('Failed to submit guess');
       return;
     }
 
@@ -245,9 +281,6 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       // Update the game status in the database
       if (!currentGameId) return;
       updateGameStatus(currentGameId, 'WON');
-      if (isDaily) {
-        setPlayedToday(true);
-      }
       return;
     }
 
@@ -256,9 +289,6 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       setStatus('Game Over! Better luck next time.');
       if (!currentGameId) return;
       updateGameStatus(currentGameId, 'LOST');
-      if (isDaily) {
-        setPlayedToday(true);
-      }
       return;
     }
 
@@ -266,7 +296,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   };
 
   const updateGameStatus = async (gameId: string, status: string) => {
-    const response = await fetch('http://localhost:3000/game/guess/update', {
+    const response = await fetch('https://gg.helldive.site/game/guess/update', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -293,8 +323,8 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   const fetchRandomStratagem = async () => {
     console.debug('Fetching random stratagem');
     try {
-      setIsDaily(false);
-      const res = await fetch('http://localhost:3000/api/stratagems/random');
+      // setIsDaily(false);
+      const res = await fetch('https://gg.helldive.site/api/stratagems/random');
       const game = await res.json();
 
       const arrowKeyCode = game.code.map((symbol: string) =>
@@ -349,7 +379,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     if (gameOver || guesses.length === 0) return;
 
     const currentGuess = guesses[currentRow];
-    const firstEmptyIndex = currentGuess.findIndex((val) => val === "");
+    const firstEmptyIndex = currentGuess.findIndex(val => val === '');
     if (firstEmptyIndex === -1) return;
 
     const updatedGuesses = [...guesses];
@@ -363,14 +393,14 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     const currentGuess = guesses[currentRow];
     let lastFilledIndex = -1;
     for (let i = currentGuess.length - 1; i >= 0; i--) {
-      if (currentGuess[i] !== "") {
+      if (currentGuess[i] !== '') {
         lastFilledIndex = i;
         break;
       }
     }
     if (lastFilledIndex !== -1) {
       const updatedGuesses = [...guesses];
-      updatedGuesses[currentRow][lastFilledIndex] = "";
+      updatedGuesses[currentRow][lastFilledIndex] = '';
       setGuesses(updatedGuesses);
     }
   };
@@ -385,43 +415,51 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
               className='box-row'
             >
               {guesses[i]?.map((value, index) => (
-                <input
+                <div
                   key={index}
-                  type='text'
                   className='game-box input-box'
-                  value={arrowKeyToSymbol(value)}
-                  readOnly
                   style={{
                     backgroundColor: getColorForFeedback(
                       feedbacks[i]?.[index] || 'initial'
                     ),
                   }}
-                />
+                >
+                  <span className='hide-mobile'>{arrowKeyToSymbol(value)}</span>
+                  <span className='hide-desktop'>
+                    {arrowKeyToComponent(value)}
+                  </span>
+                </div>
               ))}
             </div>
           ))}
 
         {!status && (
-          <div className="mobile-controls-row">
-            <div className="side-buttons left">
-              <button onClick={handleUndo} className="button is-warning">
+          <div className='mobile-controls-row'>
+            <div className='side-buttons left'>
+              <button
+                onClick={handleUndo}
+                className='button is-warning'
+              >
                 ↩
               </button>
             </div>
 
-            <div className="mobile-arrow-controls">
-              <div className="row top-row">
-                <button onClick={() => handleArrow("ArrowUp")}>^</button>
+            <div className='mobile-arrow-controls'>
+              <div className='row top-row'>
+                <button onClick={() => handleArrow('ArrowUp')}>^</button>
               </div>
-              <div className="row bottom-row">
-                <button onClick={() => handleArrow("ArrowLeft")}>{"<"}</button>
-                <button onClick={() => handleArrow("ArrowDown")}>v</button>
-                <button onClick={() => handleArrow("ArrowRight")}>{">"}</button>
+              <div className='row bottom-row'>
+                <button onClick={() => handleArrow('ArrowLeft')}>{'<'}</button>
+                <button onClick={() => handleArrow('ArrowDown')}>v</button>
+                <button onClick={() => handleArrow('ArrowRight')}>{'>'}</button>
               </div>
             </div>
 
-            <div className="side-buttons right">
-              <button onClick={submitGuess} className="button is-info">
+            <div className='side-buttons right'>
+              <button
+                onClick={submitGuess}
+                className='button is-info'
+              >
                 ✓
               </button>
             </div>
@@ -435,16 +473,26 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
               <div className='stratagem-icon mb-2'>
                 <img
                   src={getStratagemIconUrl(stratagemName)} // or a local path
-                  style={{ width: '60px', height: '60px' }}
+                  style={{ width: '80px', height: '80px' }}
                 />
               </div>
               <div>The stratagem was {stratagemName}</div>
               <div>
                 The solution was
                 <span className='arrowbox is-inline-block py-1 px-2 ml-4'>
-                  {solution
-                    .map((symbol: string) => arrowKeyToSymbol(symbol))
-                    .join(' ')}
+                  {solution.map((symbol: string, index: number) => (
+                    <span
+                      key={index}
+                      style={{ display: 'inline-flex', marginRight: '6px' }}
+                    >
+                      <span className='hide-mobile'>
+                        {arrowKeyToSymbol(symbol)}
+                      </span>
+                      <span className='hide-desktop'>
+                        {arrowKeyToComponent(symbol)}
+                      </span>
+                    </span>
+                  ))}
                 </span>
               </div>
             </div>

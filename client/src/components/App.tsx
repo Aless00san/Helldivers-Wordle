@@ -23,7 +23,7 @@ function App() {
     if (res.status === 401) {
       // If the acces token is expired
       const refreshRes = await fetch(
-        'http://localhost:3000/auth/discord/refresh', //Refresh the access token
+        'https://gg.helldive.site/auth/discord/refresh', //Refresh the access token
         {
           method: 'POST',
           credentials: 'include',
@@ -44,16 +44,19 @@ function App() {
     const username = urlParams.get('user') || 'Guest';
 
     if (username) {
-      fetchWithRefresh('http://localhost:3000/auth/discord/user')
+      fetchWithRefresh('https://gg.helldive.site/auth/discord/user')
         .then(res => {
+          console.log('Response status:', res.status);
           if (!res.ok) throw new Error('Not logged in');
           return res.json();
         })
         .then(data => {
+          console.log('User data from API:', data);
           setUser({ username: data.user.name, id: data.user.id });
           setIsLoggedIn(true);
         })
-        .catch(() => {
+        .catch(err => {
+          console.error('Error fetching user:', err);
           setIsLoggedIn(false);
           setUser({ username: 'Guest', id: 0 });
         });

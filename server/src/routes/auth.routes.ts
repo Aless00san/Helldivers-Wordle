@@ -9,12 +9,14 @@ import {
 import cors from 'cors';
 
 const router = Router();
-router.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true, 
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+router.use(
+  cors({
+    origin: 'http://gg.helldive.site',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 export default router;
 

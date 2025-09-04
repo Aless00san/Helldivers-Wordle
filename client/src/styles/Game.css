@@ -1,4 +1,4 @@
-@import url("./BoxRow.css");
+@import url('./BoxRow.css');
 
 .game-container {
   display: flex;
@@ -20,9 +20,18 @@
 }
 
 .input-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+}
+
+.input-box span {
   font-size: 90px;
   text-align: center;
   font-weight: bolder;
+  color: white;
 }
 
 .status-message {
@@ -85,88 +94,113 @@
   display: none;
 }
 
+.stats .stratagem-icon {
+  width: 80px;
+  height: 80px;
+}
+
+.stats .stratagem-icon:hover {
+  border: 1px solid white;
+  scale: 1;
+  cursor: default;
+}
+
+.hide-desktop {
+  display: none;
+}
+
+.hide-mobile {
+  display: flex;
+}
+
 @media (max-width: 769px) {
-  
   .mobile-controls-row {
-  display: flex;
-  align-items: center;      /* centra verticalmente la pirámide */
-  justify-content: center;  /* centra todo horizontalmente */
-  gap: 20px;                /* espacio entre lados y pirámide */
-}
+    display: flex;
+    align-items: center; /* centra verticalmente la pirámide */
+    justify-content: center; /* centra todo horizontalmente */
+    gap: 20px; /* espacio entre lados y pirámide */
+  }
 
-.side-buttons {
-  display: flex;
-  flex-direction: column;   /* botones apilados verticalmente */
-  gap: 10px;
-}
+  .side-buttons {
+    display: flex;
+    flex-direction: column; /* botones apilados verticalmente */
+    gap: 10px;
+  }
 
-.mobile-arrow-controls {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
+  .mobile-arrow-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
 
-.mobile-arrow-controls .row {
-  display: flex;
-  gap: 10px;
-}
+  .mobile-arrow-controls .row {
+    display: flex;
+    gap: 10px;
+  }
 
-.mobile-arrow-controls .top-row {
-  justify-content: center;
-}
+  .mobile-arrow-controls .top-row {
+    justify-content: center;
+  }
 
-.mobile-arrow-controls .bottom-row {
-  justify-content: center;
-}
+  .mobile-arrow-controls .bottom-row {
+    justify-content: center;
+  }
 
-.mobile-arrow-controls button,
-.side-buttons button {
-  padding: 12px 18px;
-  font-size: 1.4rem;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-}
-
-.button.is-primary {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.button.is-primary:hover {
-  background-color: var(--primary-color-dark);
-}
-
-.button.is-warning {
-  background-color: #f0ad4e;
-  color: white;
-}
-
-.button.is-warning:hover {
-  background-color: #ec971f;
-}
-
-.button.is-danger {
-  background-color: #d9534f;
-  color: white;
-}
-
-.button.is-danger:hover {
-  background-color: #c9302c;
-}
-
-.input-box {
-    width: 20%;
-
+  .mobile-arrow-controls button,
+  .side-buttons button {
+    padding: 12px 18px;
     font-size: 1.4rem;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+  }
+
+  .button.is-primary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+
+  .button.is-primary:hover {
+    background-color: var(--primary-color-dark);
+  }
+
+  .button.is-warning {
+    background-color: #f0ad4e;
+    color: white;
+  }
+
+  .button.is-warning:hover {
+    background-color: #ec971f;
+  }
+
+  .button.is-danger {
+    background-color: #d9534f;
+    color: white;
+  }
+
+  .button.is-danger:hover {
+    background-color: #c9302c;
+  }
+
+  .input-box {
+    width: 40px;
+    height: 40px;
   }
 
   .box-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center; /* centra filas con cualquier número de cajas */
-  align-items: center;
-  column-gap: 10px;
-}
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* centra filas con cualquier número de cajas */
+    align-items: center;
+    column-gap: 10px;
+  }
+
+  .hide-desktop {
+    display: flex;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
 }

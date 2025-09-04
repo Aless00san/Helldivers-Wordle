@@ -15,7 +15,7 @@ import cors from 'cors';
 const router = Router();
 router.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: 'http://gg.helldive.site',
   })
 );
 

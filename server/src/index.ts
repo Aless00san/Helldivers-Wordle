@@ -12,6 +12,9 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
+// Middleware para confiar en proxy
+app.set('trust proxy', true);
+
 startGameCleanupJob(); // start the game cleanup job automatically
 
 app.use(express.json());
@@ -22,5 +25,5 @@ app.use('/game', gameRoutes); //mount game routes at /game
 app.use('/user', userRoutes); //mount user routes at /user
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Server running at http://gg.helldive.site:${port}`);
 });

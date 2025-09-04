@@ -7,7 +7,7 @@ export async function getTokenFromCode(retrievedCode: string) {
     client_secret: process.env.DISCORD_CLIENT_SECRET,
     grant_type: 'authorization_code',
     code: retrievedCode,
-    redirect_uri: 'http://localhost:3000/auth/discord/callback',
+    redirect_uri: 'https://gg.helldive.site/auth/discord/callback',
     scope: 'identify',
   };
   try {

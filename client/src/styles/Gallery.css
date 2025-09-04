@@ -6,8 +6,8 @@
 }
 
 .stratagem-icon {
-  width: 120px !important;
-  height: 120px !important;
+  width: 150px;
+  height: 150px;
   border: 1px solid white;
 }
 
@@ -18,9 +18,9 @@
 }
 
 .modal-container {
-    background-color: var(--dark-gray);
-    padding: 20px;
-    border:  1px solid white;
+  background-color: var(--dark-gray);
+  padding: 20px;
+  border: 1px solid white;
 }
 
 @media (max-width: 768px) {
@@ -29,12 +29,12 @@
     gap: 10px;
     padding: 15px;
   }
-  
+
   .stratagem-icon {
     width: 70px !important;
     height: 70px !important;
   }
-  
+
   .stratagem-icon:hover {
     scale: 1.05;
   }
@@ -45,7 +45,7 @@
     gap: 8px;
     padding: 10px;
   }
-  
+
   .stratagem-icon {
     width: 60px !important;
     height: 60px !important;
