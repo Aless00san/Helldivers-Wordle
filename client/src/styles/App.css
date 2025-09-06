@@ -87,6 +87,10 @@ h3 {
   overflow: visible;
 }
 
+.mobile-button {
+  scale: 1.5;
+}
+
 @keyframes wiggle {
   0% {
     transform: rotateZ(0deg);

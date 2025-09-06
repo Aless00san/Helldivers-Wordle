@@ -3,7 +3,8 @@ import '../styles/App.css';
 import GameHistoryEntry from './GameHistoryEntry';
 import type { Game } from '../types';
 
-function GameHistory({ userId }: { userId: number }) {
+function GameHistory({ userId, isLoggedIn }: { userId: number; isLoggedIn: boolean | null }) {
+  if (!isLoggedIn) return <p>Please <strong>log in</strong> to view your game history</p>;
   const [games, setGames] = useState<Game[]>([]);
   const [page, setPage] = useState<number>(1);
   const [loading, setLoading] = useState(false);

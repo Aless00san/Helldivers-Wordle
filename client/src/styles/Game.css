@@ -1,4 +1,4 @@
-@import url('./BoxRow.css');
+@import url("./BoxRow.css");
 
 .game-container {
   display: flex;
@@ -85,10 +85,10 @@
 
 .stats {
   display: flex;
-  flex-direction: column; /* apila los elementos verticalmente */
-  align-items: center; /* centra horizontalmente */
-  gap: 10px; /* opcional, espacio entre elementos */
-  text-align: center; /* asegura que los textos queden centrados */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
 }
 
 .mobile-controls {
@@ -114,17 +114,23 @@
   display: flex;
 }
 
+.arrow-button {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+}
+
 @media (max-width: 769px) {
   .mobile-controls-row {
     display: flex;
-    align-items: center; /* centra verticalmente la pirámide */
-    justify-content: center; /* centra todo horizontalmente */
-    gap: 20px; /* espacio entre lados y pirámide */
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
   }
 
   .side-buttons {
     display: flex;
-    flex-direction: column; /* botones apilados verticalmente */
+    flex-direction: column;
     gap: 10px;
   }
 
@@ -148,13 +154,12 @@
     justify-content: center;
   }
 
-  .mobile-arrow-controls button,
-  .side-buttons button {
+  .mobile-arrow-controls button {
     padding: 12px 18px;
     font-size: 1.4rem;
     border-radius: 8px;
     cursor: pointer;
-    border: none;
+    border: solid;
   }
 
   .button.is-primary {
@@ -167,8 +172,21 @@
   }
 
   .button.is-warning {
-    background-color: #f0ad4e;
+    background-color: var(--dark-gray);
+    color: #fff;
+    border: 3px solid white;
+    width: 50px;
+    height: 50px;
+    padding: 12px;
+  }
+
+  .is-select {
+    background-color: #7b752e;
     color: white;
+    border: 3px solid yellow;
+    width: 50px;
+    height: 50px;
+    padding: 12px;
   }
 
   .button.is-warning:hover {
@@ -192,7 +210,7 @@
   .box-row {
     display: flex;
     flex-direction: row;
-    justify-content: center; /* centra filas con cualquier número de cajas */
+    justify-content: center;
     align-items: center;
     column-gap: 10px;
   }

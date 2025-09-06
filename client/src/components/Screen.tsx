@@ -23,7 +23,7 @@ export default function Screen({
       case 'about':
         return <About />;
       case 'history':
-        return <GameHistory userId={userId} />;
+        return <GameHistory userId={userId} isLoggedIn={isLoggedIn} />;
       case 'gallery':
         return <Gallery/>;
       default:

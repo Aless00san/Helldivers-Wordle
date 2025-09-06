@@ -1,13 +1,12 @@
 import { useEffect, useState, type JSX } from 'react';
 import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from './Arrows';
 import '../styles/Game.css';
+import CheckMark from './icons/CheckMark';
+import Undo from './icons/Undo';
 
 export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   // Types
   type FeedbackType = 'correct' | 'misplaced' | 'wrong' | 'initial';
-
-  // const [isDaily, setIsDaily] = useState(false);
-
   const [currentRow, setCurrentRow] = useState<number>(0);
   const [guesses, setGuesses] = useState<string[][]>([]);
   const [feedbacks, setFeedbacks] = useState<FeedbackType[][]>([]);
@@ -440,34 +439,34 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
                 onClick={handleUndo}
                 className='button is-warning'
               >
-                ↩
+                 <Undo fill='white' width={18} height={18} className='mobile-button' />
               </button>
             </div>
 
             <div className='mobile-arrow-controls'>
               <div className='row top-row'>
-                <button onClick={() => handleArrow('ArrowUp')}>^</button>
+                <button className='arrow-button' onClick={() => handleArrow('ArrowUp')}><ArrowUp width={18} height={18} /></button>
               </div>
               <div className='row bottom-row'>
-                <button onClick={() => handleArrow('ArrowLeft')}>{'<'}</button>
-                <button onClick={() => handleArrow('ArrowDown')}>v</button>
-                <button onClick={() => handleArrow('ArrowRight')}>{'>'}</button>
+                <button className='arrow-button' onClick={() => handleArrow('ArrowLeft')}><ArrowLeft width={18} height={18} /></button>
+                <button className='arrow-button' onClick={() => handleArrow('ArrowDown')}><ArrowDown width={18} height={18} /></button>
+                <button className='arrow-button' onClick={() => handleArrow('ArrowRight')}><ArrowRight width={18} height={18} /></button>
               </div>
             </div>
 
             <div className='side-buttons right'>
               <button
                 onClick={submitGuess}
-                className='button is-info'
+                className='button is-select'
               >
-                ✓
+                <CheckMark fill='white' width={18} height={18} className='mobile-button' />
               </button>
             </div>
           </div>
         )}
 
         {status && (
-          <div className='status-message'>
+          <div className='status-message mobile-content'>
             <div>{status}</div>
             <div className='stats'>
               <div className='stratagem-icon mb-2'>
@@ -494,12 +493,15 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
                     </span>
                   ))}
                 </span>
+              <div> 
+                You took {guesses.length} guesses
+              </div>
               </div>
             </div>
           </div>
         )}
         {status && (
-          <div>
+          <div className='mobile-content'>
             <button
               className='newgame_button button'
               onClick={resetGame}
