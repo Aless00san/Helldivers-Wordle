@@ -11,7 +11,7 @@ datasource db {
 
 model Stratagem {
   id        String   @id @default(uuid())
-  name      String
+  name      String @unique
   code      Json       
   category  String                 
   enabled   Boolean  @default(true)

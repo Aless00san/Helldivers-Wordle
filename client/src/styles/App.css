@@ -165,3 +165,9 @@ h3 {
     background-color: white;
   }
 }
+
+@media (max-width: 768px) {
+  .mobile-content {
+    transform: translateY(-80px);
+  }
+}

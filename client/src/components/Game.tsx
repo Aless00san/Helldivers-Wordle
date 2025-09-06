@@ -472,8 +472,8 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
             <div className='stats'>
               <div className='stratagem-icon mb-2'>
                 <img
-                  src={getStratagemIconUrl(stratagemName)} // or a local path
-                  style={{ width: '80px', height: '80px' }}
+                  src={getStratagemIconUrl(stratagemName)}
+                  style={{ width: '100%', height: '100%' }}
                 />
               </div>
               <div>The stratagem was {stratagemName}</div>

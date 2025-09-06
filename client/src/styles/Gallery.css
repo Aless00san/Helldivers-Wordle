@@ -3,6 +3,8 @@
   flex-wrap: wrap;
   gap: 15px;
   justify-content: center;
+  margin: 50px;
+  padding: 25px;
 }
 
 .stratagem-icon {
@@ -26,8 +28,9 @@
 @media (max-width: 768px) {
   .gallery-container {
     justify-content: center;
-    gap: 10px;
-    padding: 15px;
+    margin: 0px;
+    margin-top: 40px;
+    margin-bottom: 80px;
   }
 
   .stratagem-icon {
@@ -44,6 +47,8 @@
   .gallery-container {
     gap: 8px;
     padding: 10px;
+    margin-top: 55px;
+    margin-bottom: 80px;
   }
 
   .stratagem-icon {
