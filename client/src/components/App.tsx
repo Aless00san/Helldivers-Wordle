@@ -1,39 +1,39 @@
 //CSS
-import '../styles/App.css';
+import "../styles/App.css";
 //Components
-import Screen from './Screen.tsx';
-import Navbar from './Navbar.tsx';
-import Footer from './Footer.tsx';
+import Screen from "./Screen.tsx";
+import Navbar from "./Navbar.tsx";
+import Footer from "./Footer.tsx";
 //External
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState } from "react";
+import { useEffect } from "react";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('Game');
+  const [currentPage, setCurrentPage] = useState("Game");
   const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
 
   const [user, setUser] = useState({
-    username: 'Guest',
+    username: "Guest",
     id: 0,
   });
 
   async function fetchWithRefresh(url: string, options: RequestInit = {}) {
-    const res = await fetch(url, { ...options, credentials: 'include' });
+    const res = await fetch(url, { ...options, credentials: "include" });
 
     if (res.status === 401) {
       // If the acces token is expired
       const refreshRes = await fetch(
-        'https://gg.helldive.site/auth/discord/refresh', //Refresh the access token
+        "http://localhost:3000/auth/discord/refresh", //Refresh the access token
         {
-          method: 'POST',
-          credentials: 'include',
-        }
+          method: "POST",
+          credentials: "include",
+        },
       );
 
-      if (!refreshRes.ok) throw new Error('Unable to refresh token');
+      if (!refreshRes.ok) throw new Error("Unable to refresh token");
 
       // Retry original request after refreshing token
-      return fetch(url, { ...options, credentials: 'include' });
+      return fetch(url, { ...options, credentials: "include" });
     }
 
     return res;
@@ -41,45 +41,42 @@ function App() {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const username = urlParams.get('user') || 'Guest';
+    const username = urlParams.get("user") || "Guest";
 
     if (username) {
-      fetchWithRefresh('https://gg.helldive.site/auth/discord/user')
-        .then(res => {
-          console.log('Response status:', res.status);
-          if (!res.ok) throw new Error('Not logged in');
+      fetchWithRefresh("http://localhost:3000/auth/discord/user")
+        .then((res) => {
+          console.log("Response status:", res.status);
+          if (!res.ok) throw new Error("Not logged in");
           return res.json();
         })
-        .then(data => {
-          console.log('User data from API:', data);
+        .then((data) => {
+          console.log("User data from API:", data);
           setUser({ username: data.user.name, id: data.user.id });
           setIsLoggedIn(true);
         })
-        .catch(err => {
-          console.error('Error fetching user:', err);
+        .catch((err) => {
+          console.error("Error fetching user:", err);
           setIsLoggedIn(false);
-          setUser({ username: 'Guest', id: 0 });
+          setUser({ username: "Guest", id: 0 });
         });
     } else {
-      setUser({ username: 'Guest', id: 0 });
+      setUser({ username: "Guest", id: 0 });
     }
   }, []);
 
   // Function to handle dropdown item clicks
   const handleMenuItemClick = (contentName: string) => {
     setCurrentPage(contentName);
-    const dropdown = document.querySelector('.dropdown');
-    if (dropdown && dropdown.classList.contains('is-active')) {
-      dropdown.classList.remove('is-active');
+    const dropdown = document.querySelector(".dropdown");
+    if (dropdown && dropdown.classList.contains("is-active")) {
+      dropdown.classList.remove("is-active");
     }
   };
 
   return (
     <>
-      <Navbar
-        itemClickHandler={handleMenuItemClick}
-        user={user}
-      />
+      <Navbar itemClickHandler={handleMenuItemClick} user={user} />
       <Screen
         currentPage={currentPage}
         userId={user.id}

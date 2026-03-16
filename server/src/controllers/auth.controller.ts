@@ -1,12 +1,12 @@
-import { Request, Response } from 'express';
-import { getTokenFromCode, getUser } from '../services/discord.service';
-import { PrismaClient } from '@prisma/client';
+import { Request, Response } from "express";
+import { getTokenFromCode, getUser } from "../services/discord.service";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 export const redirectToDiscordAuth = async (req: Request, res: Response) => {
   res.redirect(
-    `https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=https%3A%2F%2Fgg.helldive.site%2Fauth%2Fdiscord%2Fcallback&scope=identify+email`
+    `https://discord.com/oauth2/authorize?client_id=1400113678044364820&response_type=code&redirect_uri=https%3A%2F%2Flocalhost:5173%2Fauth%2Fdiscord%2Fcallback&scope=identify+email`,
   );
 };
 
@@ -16,32 +16,32 @@ export const handleDiscordCallback = async (req: Request, res: Response) => {
   const code = req.query.code as string;
 
   if (!code) {
-    return res.status(400).send('Missing code from Discord callback.');
+    return res.status(400).send("Missing code from Discord callback.");
   }
 
   try {
     const token = await getTokenFromCode(code);
 
     if (!token) {
-      return res.status(400).send('Failed to retrieve token from code');
+      return res.status(400).send("Failed to retrieve token from code");
     }
 
     //acces token
-    res.cookie('access_token', token.access_token, {
+    res.cookie("access_token", token.access_token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: "strict",
       maxAge: 3600 * 1000, // 1 hour
-      path: '/',
+      path: "/",
     });
 
     //refresh token
-    res.cookie('refresh_token', token.refresh_token, {
+    res.cookie("refresh_token", token.refresh_token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'strict',
+      sameSite: "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000 * 4, // 4 weeks
-      path: '/auth/refresh',
+      path: "/auth/refresh",
     });
 
     //retrieve user
@@ -64,15 +64,15 @@ export const handleDiscordCallback = async (req: Request, res: Response) => {
         },
       });
     } else {
-      console.error('User already exists in DB');
+      console.error("User already exists in DB");
     }
 
     return res.redirect(
-      `${process.env.FRONTEND_URL}/login?user=${user.username}`
+      `${process.env.FRONTEND_URL}/login?user=${user.username}`,
     );
   } catch (err) {
-    console.error('Error getting token from code:', err);
-    res.status(500).send('Error retrieving token from code.');
+    console.error("Error getting token from code:", err);
+    res.status(500).send("Error retrieving token from code.");
   }
 };
 
@@ -81,25 +81,25 @@ export const handleDiscordCallback = async (req: Request, res: Response) => {
 // Exchange the refresh token for a new access token
 export const refreshToken = async (req: Request, res: Response) => {
   try {
-    const refresh_token = req.cookies['refresh_token'];
+    const refresh_token = req.cookies["refresh_token"];
 
     if (!refresh_token) {
       return res
         .status(400)
-        .json({ error: 'No refresh token found in cookies' });
+        .json({ error: "No refresh token found in cookies" });
     }
 
     const params = new URLSearchParams();
-    params.append('client_id', process.env.DISCORD_CLIENT_ID!);
-    params.append('client_secret', process.env.DISCORD_CLIENT_SECRET!);
-    params.append('grant_type', 'refresh_token');
-    params.append('refresh_token', refresh_token);
-    params.append('redirect_uri', process.env.DISCORD_REDIRECT_URI!);
+    params.append("client_id", process.env.DISCORD_CLIENT_ID!);
+    params.append("client_secret", process.env.DISCORD_CLIENT_SECRET!);
+    params.append("grant_type", "refresh_token");
+    params.append("refresh_token", refresh_token);
+    params.append("redirect_uri", process.env.DISCORD_REDIRECT_URI!);
 
-    const response = await fetch('https://discord.com/api/oauth2/token', {
-      method: 'POST',
+    const response = await fetch("https://discord.com/api/oauth2/token", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        "Content-Type": "application/x-www-form-urlencoded",
       },
       body: params.toString(),
     });
@@ -112,10 +112,10 @@ export const refreshToken = async (req: Request, res: Response) => {
 
     // Optionally update the cookie with a new refresh token
     if (data.refresh_token) {
-      res.cookie('refresh_token', data.refresh_token, {
+      res.cookie("refresh_token", data.refresh_token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
       });
     }
 
@@ -127,8 +127,8 @@ export const refreshToken = async (req: Request, res: Response) => {
       token_type: data.token_type,
     });
   } catch (error) {
-    console.error('Error refreshing Discord token:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error refreshing Discord token:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
@@ -159,27 +159,27 @@ export const getCurrentUser = async (req: Request, res: Response) => {
 
   if (!user) {
     return res.json({
-      status: 'ERROR',
-      message: 'User not found or access token missing.',
+      status: "ERROR",
+      message: "User not found or access token missing.",
     });
   }
 
   return res.json({
-    status: 'SUCCESS',
-    message: 'User exists in DB.',
+    status: "SUCCESS",
+    message: "User exists in DB.",
     user: user,
   });
 };
 
 export const logout = async (req: Request, res: Response) => {
   //clear the acces_token
-  res.cookie('access_token', '', {
+  res.cookie("access_token", "", {
     httpOnly: true,
     secure: true,
-    sameSite: 'strict',
+    sameSite: "strict",
     maxAge: 0,
-    path: '/',
+    path: "/",
   });
 
-  res.status(200).send('Successfully logged out.');
+  res.status(200).send("Successfully logged out.");
 };
