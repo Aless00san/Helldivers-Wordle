@@ -1,12 +1,12 @@
-import { useEffect, useState, type JSX } from 'react';
-import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from './Arrows';
-import '../styles/Game.css';
-import CheckMark from './icons/CheckMark';
-import Undo from './icons/Undo';
+import { useEffect, useState, type JSX } from "react";
+import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight } from "./Arrows";
+import "../styles/Game.css";
+import CheckMark from "./icons/CheckMark";
+import Undo from "./icons/Undo";
 
 export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   // Types
-  type FeedbackType = 'correct' | 'misplaced' | 'wrong' | 'initial';
+  type FeedbackType = "correct" | "misplaced" | "wrong" | "initial";
   const [currentRow, setCurrentRow] = useState<number>(0);
   const [guesses, setGuesses] = useState<string[][]>([]);
   const [feedbacks, setFeedbacks] = useState<FeedbackType[][]>([]);
@@ -17,43 +17,43 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   const [stratagemId, setStratagemId] = useState<string | null>(null);
   const [stratagemName, setStratagemName] = useState<string | null>(null);
 
-  const allowedKeys = ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'];
+  const allowedKeys = ["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"];
 
   const fetchStratagem = async () => {
     if (isLoggedIn) {
       try {
-        const playedToday = await fetch('https://gg.helldive.site/game/today', {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
+        const playedToday = await fetch("https://gg.helldive.site/game/today", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
         });
         const data = await playedToday.json();
         console.debug(data);
         if (
           (data.game !== null &&
             data.game != undefined &&
-            data.game.status === 'IN_PROGRESS') ||
-          data.message === 'No game found for today.'
+            data.game.status === "IN_PROGRESS") ||
+          data.message === "No game found for today."
         ) {
-          console.debug('Fetching daily stratagem');
+          console.debug("Fetching daily stratagem");
           const res = await fetch(
-            'https://gg.helldive.site/api/stratagems/daily'
+            "https://gg.helldive.site/api/stratagems/daily",
           );
           const game = await res.json();
 
           const arrowKeyCode = game.code.map((symbol: string) =>
-            symbolToArrowKey(symbol)
+            symbolToArrowKey(symbol),
           );
 
           // setIsDaily(true);
           setSolution(arrowKeyCode);
           updateStratagem(game);
         } else {
-          console.log('Fetch random because of no daily game');
+          console.log("Fetch random because of no daily game");
           await fetchRandomStratagem();
         }
       } catch (err) {
-        console.error('Failed to fetch daily stratagem:', err);
+        console.error("Failed to fetch daily stratagem:", err);
       }
     } else {
       await fetchRandomStratagem();
@@ -71,18 +71,18 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       const createGame = async () => {
         try {
           const gameRes = await fetch(
-            'https://gg.helldive.site/game/guess/create',
+            "https://gg.helldive.site/game/guess/create",
             {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              credentials: 'include',
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              credentials: "include",
               body: JSON.stringify({ stratagemId }),
-            }
+            },
           );
           const game = await gameRes.json();
           setCurrentGameId(game.id);
         } catch (error) {
-          console.error('Failed to create game:', error);
+          console.error("Failed to create game:", error);
         }
       };
 
@@ -97,13 +97,16 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
 
       // Create guesses array with dynamic rows, each with solution.length columns
       const initialGuesses = Array.from({ length: numberOfRows }, () =>
-        Array.from({ length: solution.length }, () => '')
+        Array.from({ length: solution.length }, () => ""),
       );
       setGuesses(initialGuesses);
 
       // Create feedbacks array with dynamic rows, each with solution.length columns
       const initialFeedbacks = Array.from({ length: numberOfRows }, () =>
-        Array.from({ length: solution.length }, () => 'initial' as FeedbackType)
+        Array.from(
+          { length: solution.length },
+          () => "initial" as FeedbackType,
+        ),
       );
       setFeedbacks(initialFeedbacks);
     }
@@ -112,49 +115,29 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   // Map arrow keys to symbols
   const arrowKeyToSymbol = (key: string): string => {
     switch (key) {
-      case 'ArrowUp':
-        return '🠩';
-      case 'ArrowDown':
-        return '🠫';
-      case 'ArrowLeft':
-        return '🠨';
-      case 'ArrowRight':
-        return '🠪';
+      case "ArrowUp":
+        return "🠩";
+      case "ArrowDown":
+        return "🠫";
+      case "ArrowLeft":
+        return "🠨";
+      case "ArrowRight":
+        return "🠪";
       default:
-        return '';
+        return "";
     }
   };
 
   const arrowKeyToComponent = (key: string): JSX.Element | null => {
     switch (key) {
-      case 'ArrowUp':
-        return (
-          <ArrowUp
-            width={24}
-            height={24}
-          />
-        );
-      case 'ArrowDown':
-        return (
-          <ArrowDown
-            width={24}
-            height={24}
-          />
-        );
-      case 'ArrowLeft':
-        return (
-          <ArrowLeft
-            width={24}
-            height={24}
-          />
-        );
-      case 'ArrowRight':
-        return (
-          <ArrowRight
-            width={24}
-            height={24}
-          />
-        );
+      case "ArrowUp":
+        return <ArrowUp width={24} height={24} />;
+      case "ArrowDown":
+        return <ArrowDown width={24} height={24} />;
+      case "ArrowLeft":
+        return <ArrowLeft width={24} height={24} />;
+      case "ArrowRight":
+        return <ArrowRight width={24} height={24} />;
       default:
         return null;
     }
@@ -163,16 +146,16 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   // Map symbols back to key strings
   const symbolToArrowKey = (symbol: string): string => {
     switch (symbol) {
-      case '🠩':
-        return 'ArrowUp';
-      case '🠫':
-        return 'ArrowDown';
-      case '🠨':
-        return 'ArrowLeft';
-      case '🠪':
-        return 'ArrowRight';
+      case "🠩":
+        return "ArrowUp";
+      case "🠫":
+        return "ArrowDown";
+      case "🠨":
+        return "ArrowLeft";
+      case "🠪":
+        return "ArrowRight";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -181,24 +164,24 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (gameOver || guesses.length === 0) return;
 
-      if (e.key === 'Enter') {
+      if (e.key === "Enter") {
         submitGuess();
         return;
       }
 
-      if (e.key === 'Backspace') {
+      if (e.key === "Backspace") {
         const currentGuess = guesses[currentRow];
 
         let lastFilledIndex = -1;
         for (let i = currentGuess.length - 1; i >= 0; i--) {
-          if (currentGuess[i] !== '') {
+          if (currentGuess[i] !== "") {
             lastFilledIndex = i;
             break;
           }
         }
         if (lastFilledIndex !== -1) {
           const updatedGuesses = [...guesses];
-          updatedGuesses[currentRow][lastFilledIndex] = '';
+          updatedGuesses[currentRow][lastFilledIndex] = "";
           setGuesses(updatedGuesses);
         }
         return;
@@ -207,7 +190,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       if (!allowedKeys.includes(e.key)) return;
 
       const currentGuess = guesses[currentRow];
-      const firstEmptyIndex = currentGuess.findIndex(val => val === '');
+      const firstEmptyIndex = currentGuess.findIndex((val) => val === "");
       if (firstEmptyIndex === -1) return;
 
       const updatedGuesses = [...guesses];
@@ -215,41 +198,41 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       setGuesses(updatedGuesses);
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [guesses, currentRow, gameOver]);
 
   const getColorForFeedback = (feedbackType: FeedbackType): string => {
     switch (feedbackType) {
-      case 'correct':
-        return 'var(--correct-color)';
-      case 'misplaced':
-        return 'var(--misplaced-color)';
-      case 'wrong':
-        return 'var(--dark-gray)';
-      case 'initial':
-        return 'var(--initial-color)';
+      case "correct":
+        return "var(--correct-color)";
+      case "misplaced":
+        return "var(--misplaced-color)";
+      case "wrong":
+        return "var(--dark-gray)";
+      case "initial":
+        return "var(--initial-color)";
       default:
-        return '#6b7280';
+        return "#6b7280";
     }
   };
 
   const submitGuess = async () => {
     if (gameOver || guesses.length === 0) return;
     if (solution.length === 0) {
-      alert('Game is still loading...');
+      alert("Game is still loading...");
       return;
     }
 
     const currentGuess = guesses[currentRow];
-    if (currentGuess.includes('')) {
+    if (currentGuess.includes("")) {
       alert(`Please fill all ${solution.length} directions using arrow keys.`);
       return;
     }
 
-    const response = await fetch('https://gg.helldive.site/game/guess', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("https://gg.helldive.site/game/guess", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         guess: currentGuess,
         solution: solution,
@@ -262,7 +245,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
 
     const data = await response.json();
 
-    setFeedbacks(prev => {
+    setFeedbacks((prev) => {
       const updated = [...prev];
       updated[currentRow] = data.guesses;
       return updated;
@@ -271,33 +254,33 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     // Check if guess is fully correct
     // We use this to determine if the game is over
     const isCorrect = data.guesses.every(
-      (feedback: FeedbackType) => feedback === 'correct'
+      (feedback: FeedbackType) => feedback === "correct",
     );
 
     if (isCorrect) {
       setGameOver(true);
-      setStatus('Congratulations! You guessed correctly.');
+      setStatus("Congratulations! You guessed correctly.");
       // Update the game status in the database
       if (!currentGameId) return;
-      updateGameStatus(currentGameId, 'WON');
+      updateGameStatus(currentGameId, "WON");
       return;
     }
 
     if (currentRow >= guesses.length - 1) {
       setGameOver(true);
-      setStatus('Game Over! Better luck next time.');
+      setStatus("Game Over! Better luck next time.");
       if (!currentGameId) return;
-      updateGameStatus(currentGameId, 'LOST');
+      updateGameStatus(currentGameId, "LOST");
       return;
     }
 
-    setCurrentRow(prev => prev + 1);
+    setCurrentRow((prev) => prev + 1);
   };
 
   const updateGameStatus = async (gameId: string, status: string) => {
-    const response = await fetch('https://gg.helldive.site/game/guess/update', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    const response = await fetch("https://gg.helldive.site/game/guess/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         gameId,
         status,
@@ -320,19 +303,19 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   };
 
   const fetchRandomStratagem = async () => {
-    console.debug('Fetching random stratagem');
+    console.debug("Fetching random stratagem");
     try {
       // setIsDaily(false);
-      const res = await fetch('https://gg.helldive.site/api/stratagems/random');
+      const res = await fetch("https://gg.helldive.site/api/stratagems/random");
       const game = await res.json();
 
       const arrowKeyCode = game.code.map((symbol: string) =>
-        symbolToArrowKey(symbol)
+        symbolToArrowKey(symbol),
       );
       setSolution(arrowKeyCode);
       updateStratagem(game);
     } catch (err) {
-      console.error('Failed to fetch random stratagem:', err);
+      console.error("Failed to fetch random stratagem:", err);
     }
   };
 
@@ -344,12 +327,15 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
 
       // Reset with proper dimensions based on solution
       const initialGuesses = Array.from({ length: numberOfRows }, () =>
-        Array.from({ length: solution.length }, () => '')
+        Array.from({ length: solution.length }, () => ""),
       );
       setGuesses(initialGuesses);
 
       const initialFeedbacks = Array.from({ length: numberOfRows }, () =>
-        Array.from({ length: solution.length }, () => 'initial' as FeedbackType)
+        Array.from(
+          { length: solution.length },
+          () => "initial" as FeedbackType,
+        ),
       );
       setFeedbacks(initialFeedbacks);
     }
@@ -365,12 +351,64 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     // setStratagemCode(data.code);
   }
 
+  // This function is used to generate the Date code for the share string
+  function getDateCode() {
+    const d = new Date();
+    const months = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+
+    return `${months[d.getMonth()]}${String(d.getDate()).padStart(2, "0")}${String(d.getFullYear()).slice(-2)}`;
+  }
+
+  // This function is used to generate the share string
+  // This string is then used to copy the guesses to the clipboard via the share button
+  function getShareString() {
+    const shareString: string[] = [];
+
+    const emojiMap: Record<string, string> = {
+      correct: "🟩",
+      misplaced: "🟨",
+      wrong: "🟥",
+    };
+
+    const solutionLength = solution.length;
+    const guessesFlattened = feedbacks.flat();
+    const numberOfRows = getNumberOfRows();
+
+    for (let i = 0; i < numberOfRows; i++) {
+      const row = guessesFlattened
+        .slice(i * solutionLength, (i + 1) * solutionLength)
+        .map((v) => emojiMap[v] ?? "⬛");
+
+      while (row.length < solutionLength) {
+        row.push("⬛");
+      }
+
+      shareString.push(row.join(""));
+    }
+
+    return `Helldive Guess Game ${getDateCode()}:
+${shareString.join("\n")}`;
+  }
+
   if (solution.length === 0 || guesses.length === 0) {
     return <div>Loading...</div>;
   }
 
   function getStratagemIconUrl(name: string | null) {
-    if (!name) return '';
+    if (!name) return "";
     return `/stratagems/${name}.svg`;
   }
 
@@ -378,7 +416,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     if (gameOver || guesses.length === 0) return;
 
     const currentGuess = guesses[currentRow];
-    const firstEmptyIndex = currentGuess.findIndex(val => val === '');
+    const firstEmptyIndex = currentGuess.findIndex((val) => val === "");
     if (firstEmptyIndex === -1) return;
 
     const updatedGuesses = [...guesses];
@@ -392,39 +430,36 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     const currentGuess = guesses[currentRow];
     let lastFilledIndex = -1;
     for (let i = currentGuess.length - 1; i >= 0; i--) {
-      if (currentGuess[i] !== '') {
+      if (currentGuess[i] !== "") {
         lastFilledIndex = i;
         break;
       }
     }
     if (lastFilledIndex !== -1) {
       const updatedGuesses = [...guesses];
-      updatedGuesses[currentRow][lastFilledIndex] = '';
+      updatedGuesses[currentRow][lastFilledIndex] = "";
       setGuesses(updatedGuesses);
     }
   };
 
   return (
     <>
-      <div className='game-container'>
+      <div className="game-container">
         {!status &&
           guesses.map((_, i) => (
-            <div
-              key={i}
-              className='box-row'
-            >
+            <div key={i} className="box-row">
               {guesses[i]?.map((value, index) => (
                 <div
                   key={index}
-                  className='game-box input-box'
+                  className="game-box input-box"
                   style={{
                     backgroundColor: getColorForFeedback(
-                      feedbacks[i]?.[index] || 'initial'
+                      feedbacks[i]?.[index] || "initial",
                     ),
                   }}
                 >
-                  <span className='hide-mobile'>{arrowKeyToSymbol(value)}</span>
-                  <span className='hide-desktop'>
+                  <span className="hide-mobile">{arrowKeyToSymbol(value)}</span>
+                  <span className="hide-desktop">
                     {arrowKeyToComponent(value)}
                   </span>
                 </div>
@@ -433,79 +468,113 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
           ))}
 
         {!status && (
-          <div className='mobile-controls-row'>
-            <div className='side-buttons left'>
-              <button
-                onClick={handleUndo}
-                className='button is-warning'
-              >
-                 <Undo fill='white' width={18} height={18} className='mobile-button' />
+          <div className="mobile-controls-row">
+            <div className="side-buttons left">
+              <button onClick={handleUndo} className="button is-warning">
+                <Undo
+                  fill="white"
+                  width={18}
+                  height={18}
+                  className="mobile-button"
+                />
               </button>
             </div>
 
-            <div className='mobile-arrow-controls'>
-              <div className='row top-row'>
-                <button className='arrow-button' onClick={() => handleArrow('ArrowUp')}><ArrowUp width={18} height={18} /></button>
+            <div className="mobile-arrow-controls">
+              <div className="row top-row">
+                <button
+                  className="arrow-button"
+                  onClick={() => handleArrow("ArrowUp")}
+                >
+                  <ArrowUp width={18} height={18} />
+                </button>
               </div>
-              <div className='row bottom-row'>
-                <button className='arrow-button' onClick={() => handleArrow('ArrowLeft')}><ArrowLeft width={18} height={18} /></button>
-                <button className='arrow-button' onClick={() => handleArrow('ArrowDown')}><ArrowDown width={18} height={18} /></button>
-                <button className='arrow-button' onClick={() => handleArrow('ArrowRight')}><ArrowRight width={18} height={18} /></button>
+              <div className="row bottom-row">
+                <button
+                  className="arrow-button"
+                  onClick={() => handleArrow("ArrowLeft")}
+                >
+                  <ArrowLeft width={18} height={18} />
+                </button>
+                <button
+                  className="arrow-button"
+                  onClick={() => handleArrow("ArrowDown")}
+                >
+                  <ArrowDown width={18} height={18} />
+                </button>
+                <button
+                  className="arrow-button"
+                  onClick={() => handleArrow("ArrowRight")}
+                >
+                  <ArrowRight width={18} height={18} />
+                </button>
               </div>
             </div>
 
-            <div className='side-buttons right'>
-              <button
-                onClick={submitGuess}
-                className='button is-select'
-              >
-                <CheckMark fill='white' width={18} height={18} className='mobile-button' />
+            <div className="side-buttons right">
+              <button onClick={submitGuess} className="button is-select">
+                <CheckMark
+                  fill="white"
+                  width={18}
+                  height={18}
+                  className="mobile-button"
+                />
               </button>
             </div>
           </div>
         )}
 
         {status && (
-          <div className='status-message mobile-content'>
+          <div className="status-message mobile-content">
             <div>{status}</div>
-            <div className='stats'>
-              <div className='stratagem-icon mb-2'>
+            <div className="stats">
+              <div className="stratagem-icon mb-2">
                 <img
                   src={getStratagemIconUrl(stratagemName)}
-                  style={{ width: '100%', height: '100%' }}
+                  style={{ width: "100%", height: "100%" }}
                 />
               </div>
               <div>The stratagem was {stratagemName}</div>
               <div>
                 The solution was
-                <span className='arrowbox is-inline-block py-1 px-2 ml-4'>
+                <span className="arrowbox is-inline-block py-1 px-2 ml-4">
                   {solution.map((symbol: string, index: number) => (
                     <span
                       key={index}
-                      style={{ display: 'inline-flex', marginRight: '6px' }}
+                      style={{ display: "inline-flex", marginRight: "6px" }}
                     >
-                      <span className='hide-mobile'>
+                      <span className="hide-mobile">
                         {arrowKeyToSymbol(symbol)}
                       </span>
-                      <span className='hide-desktop'>
+                      <span className="hide-desktop">
                         {arrowKeyToComponent(symbol)}
                       </span>
                     </span>
                   ))}
                 </span>
-              <div> 
-                You took {guesses.length} guesses
-              </div>
+                <div>You took {guesses.length} guesses</div>
+                <div id="share-cointaner">
+                  <button
+                    id="share-button"
+                    className="button"
+                    onClick={
+                      // copy to clipboard the tries
+                      () => {
+                        navigator.clipboard.writeText(getShareString());
+                        alert("Today's guesses copied to clipboard");
+                      }
+                    }
+                  >
+                    Share
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         )}
         {status && (
-          <div className='mobile-content'>
-            <button
-              className='newgame_button button'
-              onClick={resetGame}
-            >
+          <div className="mobile-content">
+            <button className="newgame_button button" onClick={resetGame}>
               New Game
             </button>
           </div>
