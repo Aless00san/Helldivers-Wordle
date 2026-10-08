@@ -3,7 +3,7 @@ function Footer() {
   return (
     <>
       <footer>
-        <p> Made by Aless00san </p>
+        <p> Made by Lexa with ❤ </p>
       </footer>
     </>
   );
