@@ -5,6 +5,12 @@
   "scripts": {
     "dev:server": "pnpm --filter helldivers-wordle-server dev",
     "dev:client": "pnpm --filter helldivers-wordle-client dev",
+    "db:generate": "pnpm --filter helldivers-wordle-server db:generate",
+    "build:server": "pnpm --filter helldivers-wordle-server build",
+    "build:client": "pnpm --filter helldivers-wordle-client build",
+    "prebuild": "pnpm db:generate",
+    "build": "pnpm build:server",
+    "postbuild": "pnpm build:client",
     "seed": "pnpm --filter helldivers-wordle-server seed",
     "test": "pnpm --filter helldivers-wordle-server test"
   },
