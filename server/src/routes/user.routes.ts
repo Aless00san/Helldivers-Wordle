@@ -5,7 +5,7 @@ import cors from 'cors';
 const router = Router();
 router.use(
   cors({
-    origin: 'http://gg.helldive.site',
+    origin: 'http://02082024.xyz',
   })
 );
 

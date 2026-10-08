@@ -41,7 +41,7 @@ To run this project, you will need to add the following environment variables to
 
 ## Try it out
 
-A live version of this webapp is running on [gg.helldive.site](https://gg.helldive.site) altough it's still in developement it's fully playable right now
+A live version of this webapp is running on [02082024.xyz](https://02082024.xyz) altough it's still in developement it's fully playable right now
 ## Acknowledgements
 
  - [Wordle](https://www.nytimes.com/games/wordle/index.html)

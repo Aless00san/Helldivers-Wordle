@@ -25,5 +25,5 @@ app.use('/game', gameRoutes); //mount game routes at /game
 app.use('/user', userRoutes); //mount user routes at /user
 
 app.listen(port, () => {
-  console.log(`Server running at http://gg.helldive.site:${port}`);
+  console.log(`Server running at http://02082024.xyz:${port}`);
 });

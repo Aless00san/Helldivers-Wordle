@@ -23,7 +23,7 @@ function App() {
     if (res.status === 401) {
       // If the acces token is expired
       const refreshRes = await fetch(
-        'https://gg.helldive.site/auth/discord/refresh', //Refresh the access token
+        'https://02082024.xyz/auth/discord/refresh', //Refresh the access token
         {
           method: 'POST',
           credentials: 'include',
@@ -44,7 +44,7 @@ function App() {
     const username = urlParams.get('user') || 'Guest';
 
     if (username) {
-      fetchWithRefresh('https://gg.helldive.site/auth/discord/user')
+      fetchWithRefresh('https://02082024.xyz/auth/discord/user')
         .then(res => {
           console.log('Response status:', res.status);
           if (!res.ok) throw new Error('Not logged in');

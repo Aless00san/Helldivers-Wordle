@@ -22,7 +22,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   const fetchStratagem = async () => {
     if (isLoggedIn) {
       try {
-        const playedToday = await fetch("https://gg.helldive.site/game/today", {
+        const playedToday = await fetch("https://02082024.xyz/game/today", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -37,7 +37,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
         ) {
           console.debug("Fetching daily stratagem");
           const res = await fetch(
-            "https://gg.helldive.site/api/stratagems/daily",
+            "https://02082024.xyz/api/stratagems/daily",
           );
           const game = await res.json();
 
@@ -71,7 +71,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       const createGame = async () => {
         try {
           const gameRes = await fetch(
-            "https://gg.helldive.site/game/guess/create",
+            "https://02082024.xyz/game/guess/create",
             {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -230,7 +230,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
       return;
     }
 
-    const response = await fetch("https://gg.helldive.site/game/guess", {
+    const response = await fetch("https://02082024.xyz/game/guess", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -278,7 +278,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
   };
 
   const updateGameStatus = async (gameId: string, status: string) => {
-    const response = await fetch("https://gg.helldive.site/game/guess/update", {
+    const response = await fetch("https://02082024.xyz/game/guess/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -306,7 +306,7 @@ export default function Game({ isLoggedIn }: { isLoggedIn: boolean | null }) {
     console.debug("Fetching random stratagem");
     try {
       // setIsDaily(false);
-      const res = await fetch("https://gg.helldive.site/api/stratagems/random");
+      const res = await fetch("https://02082024.xyz/api/stratagems/random");
       const game = await res.json();
 
       const arrowKeyCode = game.code.map((symbol: string) =>

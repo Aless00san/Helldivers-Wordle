@@ -13,7 +13,7 @@ function GameHistoryEntry({ game }: { game: Game }) {
     const fetchStratagemName = async () => {
       try {
         const response = await fetch(
-          `https://gg.helldive.site/api/stratagems/${game.stratagemId}`
+          `https://02082024.xyz/api/stratagems/${game.stratagemId}`
         );
         if (!response.ok) {
           setStratagemName('Unknown');

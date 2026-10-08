@@ -48,7 +48,7 @@ function Gallery() {
   useEffect(() => {
     const fetchStratagems = async () => {
       try {
-        const response = await fetch('https://gg.helldive.site/api/stratagems');
+        const response = await fetch('https://02082024.xyz/api/stratagems');
         if (!response.ok) {
           console.error('Failed to fetch stratagems:', response.statusText);
           return;

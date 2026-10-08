@@ -17,7 +17,7 @@ function GameHistory({ userId, isLoggedIn }: { userId: number; isLoggedIn: boole
       setLoading(true);
       try {
         const response = await fetch(
-          `https://gg.helldive.site/game/history?userId=${userId}&page=${page}&pageSize=4`
+          `https://02082024.xyz/game/history?userId=${userId}&page=${page}&pageSize=4`
         );
 
         if (!response.ok) {
